@@ -704,3 +704,17 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 /* Schmaler Handyrahmen: Hinweis darf umbrechen statt abgeschnitten zu werden. */
 .geraet-mobil .ph-label { max-width: 88%; white-space: normal; text-align: center; justify-content: center; padding: 6px 10px; font-size: 0.75rem; line-height: 1.25; }
 .geraet-mobil .ph-label .ph-sym { display: none; }
+
+/* ---------- Seitenwechsel ----------
+   Kopf und untere Navigation bleiben beim Wechsel stehen, nur der Inhalt blendet kurz über
+   (View Transitions zwischen Dokumenten, reines CSS). Bei reduzierter Bewegung aus. */
+@view-transition { navigation: auto; }
+.kopf { view-transition-name: kopf; }
+.nav-unten { view-transition-name: nav-unten; }
+::view-transition-group(kopf), ::view-transition-group(nav-unten) { animation: none; }
+::view-transition-old(kopf), ::view-transition-old(nav-unten) { display: none; }
+::view-transition-new(kopf), ::view-transition-new(nav-unten) { animation: none; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.16s; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
