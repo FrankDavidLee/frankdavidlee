@@ -3,7 +3,8 @@ VERSION:3.0
 N:Lee;Frank David;;;
 FN:Frank David Lee
 TITLE:AI Engineer & Senior Fullstack Developer
-EMAIL;TYPE=INTERNET,PREF:kontakt@frankdavidlee.com
+EMAIL;TYPE=INTERNET,PREF:contact@frankdavidlee.com
+EMAIL;TYPE=INTERNET:kontakt@frankdavidlee.com
 URL:https://frankdavidlee.com/
 X-SOCIALPROFILE;TYPE=linkedin:https://www.linkedin.com/in/frank-david-lee
 X-SOCIALPROFILE;TYPE=github:https://github.com/codeByFrank
