@@ -20,7 +20,10 @@
     if (nachWechsel) root.classList.add("sofort");
     elemente.forEach(function (el) {
       var r = el.getBoundingClientRect();
-      if (r.top < hoehe && r.bottom > 0) el.classList.add("sichtbar");
+      // Nach einem Wechsel auch knapp unterhalb des Bildrands sofort zeigen: auf dem Handy
+      // verdecken Browserleiste und untere Navigation den Rand, dort startete sonst eine zweite Bewegung.
+      var grenze = nachWechsel ? hoehe + 240 : hoehe;
+      if (r.top < grenze && r.bottom > 0) el.classList.add("sichtbar");
     });
     if (nachWechsel) requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.remove("sofort"); }); });
     root.classList.add("bewegung");
