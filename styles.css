@@ -404,6 +404,12 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 /* ---------- Projektkarten ---------- */
 .karten { list-style: none; margin: 0; padding: 0; display: grid; gap: clamp(16px, 2.5vw, 24px); grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
 .karten-kompakt { grid-template-columns: repeat(auto-fill, minmax(min(100%, 248px), 1fr)); gap: 16px; }
+/* Genau fünf weitere Projekte: 2 + 3 statt 4 + 1 (ohne :has bleibt das automatische Raster). */
+@media (min-width: 1024px) {
+  .karten-kompakt:has(> li:nth-child(5):last-child) { grid-template-columns: repeat(6, 1fr); }
+  .karten-kompakt:has(> li:nth-child(5):last-child) > li { grid-column: span 2; }
+  .karten-kompakt:has(> li:nth-child(5):last-child) > li:nth-child(-n+2) { grid-column: span 3; }
+}
 .karte {
   position: relative; display: flex; flex-direction: column; border-radius: var(--r-l); overflow: hidden;
   background: var(--flaeche); border: 1px solid var(--rand); box-shadow: var(--schatten);
@@ -606,6 +612,10 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .mt { margin-top: 32px; }
 .abschnitt-eng h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem); letter-spacing: -0.03em; margin-bottom: 20px; }
 .lead-klein { color: var(--text-2); font-size: 1.125rem; }
+.ausbildung { list-style: none; margin: 0 0 8px; padding: 0; display: grid; gap: 12px; }
+.ausbildung li { display: grid; gap: 2px; padding: 14px 18px; border-radius: var(--r-m); background: var(--flaeche); border: 1px solid var(--rand); }
+.ausbildung strong { font-weight: 600; }
+.ausbildung span { color: var(--text-2); font-size: 0.9375rem; }
 
 /* ---------- Kontakt ---------- */
 .seitenkopf h1.gross { font-size: clamp(3rem, 1.5rem + 7vw, 7rem); }

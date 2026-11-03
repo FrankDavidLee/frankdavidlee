@@ -2,102 +2,134 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://frankdavidlee.com/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/"/>
+    <loc>https://frankdavidlee.com/de/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/projekte/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/"/>
+    <loc>https://frankdavidlee.com/projects/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/projects/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/"/>
+    <loc>https://frankdavidlee.com/de/projekte/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/ueber/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/ueber/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/about/"/>
+    <loc>https://frankdavidlee.com/about/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/ueber/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/about/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/about/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/ueber/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/about/"/>
+    <loc>https://frankdavidlee.com/de/ueber/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/about/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/ueber/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/about/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/kontakt/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/kontakt/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/contact/"/>
+    <loc>https://frankdavidlee.com/contact/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/kontakt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/contact/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/contact/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/kontakt/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/contact/"/>
+    <loc>https://frankdavidlee.com/de/kontakt/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/contact/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/kontakt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/contact/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/projekte/arbeitseule/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/arbeitseule/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/arbeitseule/"/>
+    <loc>https://frankdavidlee.com/projects/arbeitseule/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/arbeitseule/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/arbeitseule/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/arbeitseule/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/projects/arbeitseule/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/arbeitseule/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/arbeitseule/"/>
+    <loc>https://frankdavidlee.com/de/projekte/arbeitseule/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/arbeitseule/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/arbeitseule/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/arbeitseule/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/projekte/app-leitstand/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/app-leitstand/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/app-leitstand/"/>
+    <loc>https://frankdavidlee.com/projects/app-leitstand/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/app-leitstand/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/app-leitstand/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/app-leitstand/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/projects/app-leitstand/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/app-leitstand/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/app-leitstand/"/>
+    <loc>https://frankdavidlee.com/de/projekte/app-leitstand/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/app-leitstand/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/app-leitstand/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/app-leitstand/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/projekte/capstone-neuefische/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/capstone-neuefische/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/capstone-neuefische/"/>
+    <loc>https://frankdavidlee.com/projects/heyappa/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/heyappa/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/heyappa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/heyappa/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/projects/capstone-neuefische/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/capstone-neuefische/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/capstone-neuefische/"/>
+    <loc>https://frankdavidlee.com/de/projekte/heyappa/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/heyappa/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/heyappa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/heyappa/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/projekte/movie-recommender/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/movie-recommender/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/movie-recommender/"/>
+    <loc>https://frankdavidlee.com/projects/capstone-neuefische/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/capstone-neuefische/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/capstone-neuefische/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/capstone-neuefische/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/projects/movie-recommender/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/movie-recommender/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/movie-recommender/"/>
+    <loc>https://frankdavidlee.com/de/projekte/capstone-neuefische/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/capstone-neuefische/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/capstone-neuefische/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/capstone-neuefische/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/projekte/star-rating-prediction/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/star-rating-prediction/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/star-rating-prediction/"/>
+    <loc>https://frankdavidlee.com/projects/movie-recommender/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/movie-recommender/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/movie-recommender/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/movie-recommender/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/projects/star-rating-prediction/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/star-rating-prediction/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/star-rating-prediction/"/>
+    <loc>https://frankdavidlee.com/de/projekte/movie-recommender/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/movie-recommender/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/movie-recommender/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/movie-recommender/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/projekte/jet-hero/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/jet-hero/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/jet-hero/"/>
+    <loc>https://frankdavidlee.com/projects/star-rating-prediction/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/star-rating-prediction/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/star-rating-prediction/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/star-rating-prediction/"/>
   </url>
   <url>
-    <loc>https://frankdavidlee.com/en/projects/jet-hero/</loc>
-    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/projekte/jet-hero/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/en/projects/jet-hero/"/>
+    <loc>https://frankdavidlee.com/de/projekte/star-rating-prediction/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/star-rating-prediction/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/star-rating-prediction/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/star-rating-prediction/"/>
+  </url>
+  <url>
+    <loc>https://frankdavidlee.com/projects/jet-hero/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/jet-hero/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/jet-hero/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/jet-hero/"/>
+  </url>
+  <url>
+    <loc>https://frankdavidlee.com/de/projekte/jet-hero/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/jet-hero/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/jet-hero/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/jet-hero/"/>
   </url>
 </urlset>
