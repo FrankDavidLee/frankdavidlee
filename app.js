@@ -49,7 +49,6 @@
     var karten = Array.prototype.slice.call(doc.querySelectorAll("[data-karten] > li"));
     var anzahl = doc.querySelector("[data-anzahl]");
     var knoepfe = Array.prototype.slice.call(filter.querySelectorAll("[data-kategorie]"));
-    filter.hidden = false;
     filter.addEventListener("click", function (ev) {
       var k = ev.target.closest("[data-kategorie]");
       if (!k) return;
@@ -78,7 +77,6 @@
     var zeige = function (text) {
       if (meldung) meldung.textContent = text;
     };
-    knopf.hidden = false;
     knopf.addEventListener("click", function () {
       var wert = knopf.getAttribute("data-kopieren");
       var ok = function () { zeige(knopf.getAttribute("data-text-ok")); };

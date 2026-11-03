@@ -252,7 +252,8 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   @keyframes puls { from { transform: scale(1); opacity: 0.6; } to { transform: scale(3); opacity: 0; } }
 }
 .held h1 { display: flex; flex-direction: column; gap: 16px; }
-.held-name { font-size: clamp(1.125rem, 0.9rem + 0.9vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; color: var(--text-2); }
+.held-name { display: inline-flex; align-items: center; gap: 12px; font-size: clamp(1.125rem, 0.9rem + 0.9vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; color: var(--text-2); }
+.held-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--flaeche), 0 0 0 3px var(--rand-stark), var(--schatten); }
 .held-satz {
   max-width: 15ch; font-size: clamp(2.5rem, 1.2rem + 5.4vw, 6.25rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.045em;
   text-wrap: balance;
@@ -600,6 +601,8 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .ueber-raster { display: grid; gap: clamp(32px, 6vw, 72px); align-items: center; }
 @media (min-width: 1024px) { .ueber-raster { grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr); } }
 .ueber-portrait img, .portrait-platzhalter { width: 100%; max-width: 420px; aspect-ratio: 4 / 5; border-radius: var(--r-xl); object-fit: cover; }
+.ueber-portrait img { display: block; height: auto; box-shadow: var(--schatten-gross); }
+@media (max-width: 1023px) { .ueber-portrait img { max-width: 280px; } }
 .portrait-platzhalter {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
   background:
@@ -760,3 +763,7 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 @media (prefers-reduced-motion: reduce) {
   .seite-laedt .kopf::after, .seite-laedt main::before { animation: none; }
 }
+
+/* Nur mit JavaScript sinnvolle Bedienelemente (Filter, Kopieren). Die Klasse "js" setzt ein
+   Einzeiler im <head> vor dem ersten Bild – so ist der Platz von Anfang an da und nichts springt. */
+html:not(.js) .nur-js { display: none !important; }
