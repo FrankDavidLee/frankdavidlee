@@ -206,6 +206,7 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .status-produktion i { background: var(--gruen); box-shadow: 0 0 0 3px color-mix(in srgb, var(--gruen) 22%, transparent); }
 .status-opensource i { background: var(--violett); }
 .status-in-arbeit i { background: var(--bernstein); }
+.status-geplant i { background: transparent; box-shadow: inset 0 0 0 1.5px var(--text-3); }
 
 .tags { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; margin: 0; padding: 0; }
 .tags li {
@@ -425,7 +426,10 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .karte-bild .geraet-desktop { width: 100%; }
 .karte-bild .geraet-mobil { width: 46%; }
 .karte-text { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px 24px; flex: 1; }
-.karte-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; font-size: 0.8125rem; color: var(--text-3); }
+/* Status und Zeitraum stehen immer in einer Zeile, damit die Titel aller Karten auf derselben Höhe beginnen. */
+.karte-meta { display: flex; flex-wrap: nowrap; align-items: center; gap: 12px; font-size: 0.8125rem; color: var(--text-3); white-space: nowrap; min-width: 0; }
+.karte-meta .status { flex: none; }
+.karte-meta > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .karte h2, .karte h3 { font-size: 1.375rem; letter-spacing: -0.03em; line-height: 1.15; }
 .karte-text > p:not(.karte-meta) { color: var(--text-2); font-size: 0.9375rem; }
 .karte .tags { margin-top: auto; padding-top: 8px; }
@@ -717,4 +721,9 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.16s; }
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
+}
+@media (max-width: 379px) {
+  .karte-meta { gap: 8px; font-size: 0.75rem; }
+  .karte-meta .status { padding: 3px 9px 3px 8px; gap: 6px; font-size: 0.75rem; }
+  .karte-text { padding-left: 18px; padding-right: 18px; }
 }

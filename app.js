@@ -7,6 +7,9 @@
   var doc = document;
   var root = doc.documentElement;
 
+  /* Alles, was zu einer Seite gehört, steckt in initSeite(): beim ersten Laden und nach jedem
+     Seitenwechsel ohne Neuladen. */
+  function initSeite() {
   /* ---------- Sanftes Einblenden (nur wenn Bewegung erlaubt) ---------- */
   var bewegungOk = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
   var elemente = Array.prototype.slice.call(doc.querySelectorAll(".einblenden"));
@@ -172,4 +175,100 @@
       if (zuletzt) zuletzt.focus();
     });
   }
+  }
+  initSeite();
+
+  /* ---------- Seitenwechsel ohne Neuladen ----------
+     Interne Links laden nur die neue Seite (gleicher Host) und tauschen den Inhalt aus; Kopf,
+     Navigation und Fuß bleiben stehen. Der Zwischenspeicher lebt nur im Arbeitsspeicher dieser
+     Seite. Bei allem Unerwarteten (andere Sprache, neue CSS-Fassung, Fehler) normal laden. */
+  var cache = new Map();
+  var laeuft = null;
+  var bewegung = !window.matchMedia || window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
+
+  function zielUrl(a) {
+    if (!a || a.target && a.target !== "_self" || a.hasAttribute("download")) return null;
+    var url = new URL(a.href, location.href);
+    if (url.origin !== location.origin) return null;
+    if (!/(\/|\.html)$/.test(url.pathname)) return null;
+    if (url.pathname === location.pathname && url.search === location.search && url.hash) return null;
+    return url;
+  }
+  function holen(href) {
+    if (!cache.has(href)) {
+      cache.set(href, fetch(href, { credentials: "same-origin" }).then(function (r) {
+        if (!r.ok || !/text\/html/.test(r.headers.get("content-type") || "")) throw new Error("kein HTML");
+        return r.text();
+      }).catch(function (e) { cache.delete(href); throw e; }));
+    }
+    return cache.get(href);
+  }
+  function vorladen(ev) {
+    var url = zielUrl(ev.target.closest && ev.target.closest("a[href]"));
+    if (url && url.pathname !== location.pathname) holen(url.pathname + url.search).catch(function () {});
+  }
+  doc.addEventListener("pointerover", vorladen, { passive: true });
+  doc.addEventListener("touchstart", vorladen, { passive: true });
+  doc.addEventListener("focusin", vorladen);
+
+  function kopfTauschen(neu) {
+    var sel = 'meta[name="description"],link[rel="canonical"],link[rel="alternate"],meta[property^="og:"],meta[name="robots"],script[type="application/ld+json"]';
+    Array.prototype.forEach.call(doc.head.querySelectorAll(sel), function (el) { el.remove(); });
+    var anker = doc.head.querySelector('link[rel="stylesheet"]');
+    Array.prototype.forEach.call(neu.head.querySelectorAll(sel), function (el) {
+      doc.head.insertBefore(doc.importNode(el, true), anker);
+    });
+    doc.title = neu.title;
+  }
+  function tauschen(neu) {
+    kopfTauschen(neu);
+    ["header.kopf", "main", "footer.fuss", "nav.nav-unten"].forEach(function (sel) {
+      var alt = doc.querySelector(sel), ersatz = neu.querySelector(sel);
+      if (alt && ersatz) alt.replaceWith(doc.importNode(ersatz, true));
+    });
+  }
+  function gehe(url, push, scrollY) {
+    var href = url.pathname + url.search;
+    var nr = laeuft = {};
+    return holen(href).then(function (html) {
+      if (nr !== laeuft) return;
+      var neu = new DOMParser().parseFromString(html, "text/html");
+      var css = function (d) { var l = d.querySelector('link[rel="stylesheet"]'); return l && l.getAttribute("href"); };
+      if (!neu.querySelector("main") || neu.querySelector('meta[http-equiv="refresh"]') ||
+          neu.documentElement.lang !== root.lang || css(neu) !== css(doc)) {
+        location.href = url.href;
+        return;
+      }
+      if (push) {
+        history.replaceState({ y: window.scrollY }, "");
+        history.pushState({ y: 0 }, "", url.href);
+      }
+      var fertig = function () {
+        tauschen(neu);
+        initSeite();
+        var ziel = url.hash && doc.getElementById(decodeURIComponent(url.hash.slice(1)));
+        if (ziel) ziel.scrollIntoView();
+        else window.scrollTo(0, scrollY || 0);
+        if (push) {
+          var main = doc.querySelector("main");
+          if (main) main.focus({ preventScroll: true });
+        }
+      };
+      if (bewegung && doc.startViewTransition) doc.startViewTransition(fertig);
+      else fertig();
+    }).catch(function () { location.href = url.href; });
+  }
+  doc.addEventListener("click", function (ev) {
+    if (ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+    var a = ev.target.closest && ev.target.closest("a[href]");
+    var url = zielUrl(a);
+    if (!url) return;
+    ev.preventDefault();
+    if (url.pathname === location.pathname && url.search === location.search) { window.scrollTo(0, 0); return; }
+    gehe(url, true, 0);
+  });
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  window.addEventListener("popstate", function (ev) {
+    gehe(new URL(location.href), false, ev.state && ev.state.y || 0);
+  });
 })();
