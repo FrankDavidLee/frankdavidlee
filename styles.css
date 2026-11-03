@@ -718,7 +718,13 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 ::view-transition-group(kopf), ::view-transition-group(nav-unten) { animation: none; }
 ::view-transition-old(kopf), ::view-transition-old(nav-unten) { display: none; }
 ::view-transition-new(kopf), ::view-transition-new(nav-unten) { animation: none; }
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.16s; }
+/* Eine einzige, ruhige Bewegung beim Wechsel: alter Inhalt blendet kurz aus, neuer gleitet von
+   leicht unten herein. Einblend-Animationen der Elemente pausieren dabei (.sofort). */
+::view-transition-old(root) { animation: vt-raus 0.14s ease-out both; }
+::view-transition-new(root) { animation: vt-rein 0.42s var(--kurve) both; }
+@keyframes vt-raus { to { opacity: 0; } }
+@keyframes vt-rein { from { opacity: 0; transform: translateY(14px); } }
+.sofort .einblenden { transition: none !important; }
 @media (prefers-reduced-motion: reduce) {
   @view-transition { navigation: none; }
 }

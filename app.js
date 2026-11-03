@@ -9,16 +9,20 @@
 
   /* Alles, was zu einer Seite gehört, steckt in initSeite(): beim ersten Laden und nach jedem
      Seitenwechsel ohne Neuladen. */
-  function initSeite() {
+  function initSeite(nachWechsel) {
   /* ---------- Sanftes Einblenden (nur wenn Bewegung erlaubt) ---------- */
   var bewegungOk = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
   var elemente = Array.prototype.slice.call(doc.querySelectorAll(".einblenden"));
   if (bewegungOk && "IntersectionObserver" in window && elemente.length) {
     var hoehe = window.innerHeight || root.clientHeight;
+    // Nach einem Seitenwechsel übernimmt der Übergang die Bewegung: was schon im Bild ist,
+    // steht sofort, damit sich nicht zwei Animationen überlagern (sonst ruckelt es am Ende).
+    if (nachWechsel) root.classList.add("sofort");
     elemente.forEach(function (el) {
       var r = el.getBoundingClientRect();
       if (r.top < hoehe && r.bottom > 0) el.classList.add("sichtbar");
     });
+    if (nachWechsel) requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.remove("sofort"); }); });
     root.classList.add("bewegung");
     var io = new IntersectionObserver(
       function (eintraege) {
@@ -274,10 +278,11 @@
       }
       var fertig = function () {
         tauschen(neu);
-        initSeite();
+        // Erst an die Zielposition scrollen, dann sichtbare Elemente bestimmen.
         var ziel = url.hash && doc.getElementById(decodeURIComponent(url.hash.slice(1)));
         if (ziel) ziel.scrollIntoView();
         else window.scrollTo(0, scrollY || 0);
+        initSeite(true);
         if (push) {
           var main = doc.querySelector("main");
           if (main) main.focus({ preventScroll: true });
