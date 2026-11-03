@@ -727,3 +727,30 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   .karte-meta .status { padding: 3px 9px 3px 8px; gap: 6px; font-size: 0.75rem; }
   .karte-text { padding-left: 18px; padding-right: 18px; }
 }
+
+/* ---------- Ladegerüst beim Seitenwechsel ----------
+   Erscheint nur, wenn das Laden länger als 150 ms dauert: schmaler Fortschrittsbalken unter dem
+   Kopf und ein ruhiges Platzhalter-Gerüst statt eines leeren oder springenden Bereichs. */
+.seite-laedt .kopf::after {
+  content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%;
+  background: linear-gradient(90deg, var(--verlauf-a), var(--verlauf-b));
+  transform-origin: left; animation: lade-balken 1.6s var(--kurve) infinite;
+}
+.seite-laedt main { position: relative; min-height: 70vh; }
+.seite-laedt main > * { visibility: hidden; }
+.seite-laedt main::before {
+  content: ""; position: absolute; top: clamp(32px, 7vw, 88px);
+  left: max(16px, calc((100% - 72rem) / 2 + 24px)); right: max(16px, calc((100% - 72rem) / 2 + 24px));
+  height: 460px; border-radius: var(--r-m);
+  background:
+    linear-gradient(var(--flaeche-2) 0 0) 0 0 / min(420px, 70%) 48px no-repeat,
+    linear-gradient(var(--flaeche-2) 0 0) 0 80px / min(640px, 92%) 16px no-repeat,
+    linear-gradient(var(--flaeche-2) 0 0) 0 108px / min(520px, 78%) 16px no-repeat,
+    linear-gradient(var(--flaeche-2) 0 0) 0 168px / 100% 280px no-repeat;
+  animation: lade-puls 1.2s ease-in-out infinite alternate;
+}
+@keyframes lade-balken { 0% { transform: scaleX(0); opacity: 1; } 80% { transform: scaleX(1); opacity: 1; } 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes lade-puls { from { opacity: 0.55; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .seite-laedt .kopf::after, .seite-laedt main::before { animation: none; }
+}

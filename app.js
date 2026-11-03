@@ -227,11 +227,40 @@
       if (alt && ersatz) alt.replaceWith(doc.importNode(ersatz, true));
     });
   }
+  // Sofortige Rückmeldung beim Tippen: der passende Navigationspunkt wird gleich markiert.
+  function navMarkieren(pfad) {
+    Array.prototype.forEach.call(doc.querySelectorAll(".nav-oben, .nav-unten"), function (nav) {
+      var bester = null, laenge = -1;
+      var links = nav.querySelectorAll("a[href]");
+      var start = links.length ? links[0].getAttribute("href") : "/";
+      Array.prototype.forEach.call(links, function (a) {
+        var h = a.getAttribute("href");
+        var passt = h === pfad || (h !== start && pfad.indexOf(h) === 0);
+        if (passt && h.length > laenge) { bester = a; laenge = h.length; }
+      });
+      if (!bester) return;
+      Array.prototype.forEach.call(nav.querySelectorAll("[aria-current]"), function (a) { a.removeAttribute("aria-current"); });
+      bester.setAttribute("aria-current", "page");
+    });
+  }
   function gehe(url, push, scrollY) {
     var href = url.pathname + url.search;
     var nr = laeuft = {};
+    // Dauert das Laden spürbar (> 150 ms, z. B. schwaches Netz), zeigt ein Platzhalter-Gerüst an,
+    // dass etwas passiert – bei schnellem Laden erscheint nichts davon.
+    var geruest = setTimeout(function () {
+      if (nr !== laeuft) return;
+      root.classList.add("seite-laedt");
+      var m = doc.querySelector("main");
+      if (m) m.setAttribute("aria-busy", "true");
+    }, 150);
+    var geruestWeg = function () {
+      clearTimeout(geruest);
+      root.classList.remove("seite-laedt");
+    };
     return holen(href).then(function (html) {
       if (nr !== laeuft) return;
+      geruestWeg();
       var neu = new DOMParser().parseFromString(html, "text/html");
       var css = function (d) { var l = d.querySelector('link[rel="stylesheet"]'); return l && l.getAttribute("href"); };
       if (!neu.querySelector("main") || neu.querySelector('meta[http-equiv="refresh"]') ||
@@ -256,7 +285,7 @@
       };
       if (bewegung && doc.startViewTransition) doc.startViewTransition(fertig);
       else fertig();
-    }).catch(function () { location.href = url.href; });
+    }).catch(function () { geruestWeg(); location.href = url.href; });
   }
   doc.addEventListener("click", function (ev) {
     if (ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
@@ -265,6 +294,7 @@
     if (!url) return;
     ev.preventDefault();
     if (url.pathname === location.pathname && url.search === location.search) { window.scrollTo(0, 0); return; }
+    navMarkieren(url.pathname);
     gehe(url, true, 0);
   });
   if ("scrollRestoration" in history) history.scrollRestoration = "manual";
