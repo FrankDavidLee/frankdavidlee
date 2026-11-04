@@ -767,3 +767,14 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 /* Nur mit JavaScript sinnvolle Bedienelemente (Filter, Kopieren). Die Klasse "js" setzt ein
    Einzeiler im <head> vor dem ersten Bild – so ist der Platz von Anfang an da und nichts springt. */
 html:not(.js) .nur-js { display: none !important; }
+
+/* ---------- Geschützter Download (Projektseite) ---------- */
+.fs-download { margin-top: 40px; margin-bottom: 8px; }
+.fs-download h2 { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.dl-version { font-size: 0.8rem; font-weight: 600; padding: 3px 10px; border-radius: 999px; background: var(--flaeche-2); color: var(--text-2, var(--text)); }
+.dl-form label { display: block; font-weight: 600; margin: 14px 0 8px; }
+.dl-zeile { display: flex; gap: 10px; flex-wrap: wrap; }
+.dl-zeile input { flex: 1 1 220px; min-height: 44px; padding: 0 14px; font: inherit; font-size: 16px; color: var(--text); background: var(--flaeche); border: 1px solid var(--rand-stark); border-radius: 12px; }
+.dl-zeile input:focus-visible { outline: 2px solid var(--akzent); outline-offset: 2px; }
+.dl-meldung { min-height: 1.5em; margin: 10px 0 0; font-size: 0.95rem; }
+.dl-meldung.fehler { color: #d14343; }

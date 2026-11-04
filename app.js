@@ -71,6 +71,47 @@
     });
   }
 
+  /* ---------- Geschützter Download: Datei liegt AES-GCM-verschlüsselt auf der Seite,
+     der Code wird nur im Browser zum Schlüssel (PBKDF2), nichts wird gesendet oder gespeichert ---------- */
+  Array.prototype.forEach.call(doc.querySelectorAll("form[data-download]"), function (form) {
+    var meldung = form.querySelector(".dl-meldung");
+    var feld = form.querySelector("input");
+    var knopf = form.querySelector("button");
+    function melde(text, fehler) { meldung.textContent = text; meldung.classList.toggle("fehler", !!fehler); }
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      if (!window.crypto || !crypto.subtle) { melde(form.getAttribute("data-fehler"), true); return; }
+      var code = feld.value;
+      knopf.disabled = true;
+      melde(form.getAttribute("data-laedt"));
+      fetch(form.getAttribute("data-download"), { cache: "no-store" })
+        .then(function (r) { if (!r.ok) throw new Error("http"); return r.arrayBuffer(); })
+        .then(function (buf) {
+          var b = new Uint8Array(buf);
+          var magie = String.fromCharCode(b[0], b[1], b[2], b[3]);
+          if (magie !== "FDL1") throw new Error("format");
+          var runden = new DataView(buf).getUint32(4);
+          var salz = b.slice(8, 24), iv = b.slice(24, 36), daten = b.slice(36);
+          return crypto.subtle.importKey("raw", new TextEncoder().encode(code), "PBKDF2", false, ["deriveKey"])
+            .then(function (k) { return crypto.subtle.deriveKey({ name: "PBKDF2", salt: salz, iterations: runden, hash: "SHA-256" }, k, { name: "AES-GCM", length: 256 }, false, ["decrypt"]); })
+            .then(function (schluessel) {
+              return crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, schluessel, daten).then(null, function () { var e = new Error("code"); e.falsch = true; throw e; });
+            });
+        })
+        .then(function (klar) {
+          var url = URL.createObjectURL(new Blob([klar], { type: "application/zip" }));
+          var a = doc.createElement("a");
+          a.href = url; a.download = form.getAttribute("data-name");
+          doc.body.appendChild(a); a.click(); a.remove();
+          setTimeout(function () { URL.revokeObjectURL(url); }, 10000);
+          feld.value = "";
+          melde(form.getAttribute("data-ok"));
+        })
+        .catch(function (e) { melde(form.getAttribute(e && e.falsch ? "data-falsch" : "data-fehler"), true); if (e && e.falsch) feld.select(); })
+        .then(function () { knopf.disabled = false; });
+    });
+  });
+
   /* ---------- E-Mail-Adresse kopieren ---------- */
   Array.prototype.forEach.call(doc.querySelectorAll("[data-kopieren]"), function (knopf) {
     var meldung = knopf.closest("li") && knopf.closest("li").querySelector(".kopier-meldung");
