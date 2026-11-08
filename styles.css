@@ -433,7 +433,7 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .karte-meta > span:last-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
 .karte h2, .karte h3 { font-size: 1.375rem; letter-spacing: -0.03em; line-height: 1.15; }
 .karte-text > p:not(.karte-meta) { color: var(--text-2); font-size: 0.9375rem; }
-.karte .tags { margin-top: auto; padding-top: 8px; }
+.karte .tags { padding-top: 8px; }
 .karten-kompakt .karte-bild { padding: 18px 18px 0; }
 
 /* Filter */
