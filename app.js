@@ -159,7 +159,9 @@
       qrAusloeser = knopf || null;
       if (!qrDialog.open) qrDialog.showModal();
       var zu = qrDialog.querySelector("[data-qr-schliessen]");
-      if (zu) zu.focus();
+      if (zu) zu.focus({ preventScroll: true });
+      var innen = qrDialog.querySelector(".qr-dialog-innen");
+      if (innen) innen.scrollTop = 0;
     };
     doc.querySelectorAll("[data-qr-oeffnen]").forEach(function (k) {
       k.addEventListener("click", function () { qrOeffnen(k); });
