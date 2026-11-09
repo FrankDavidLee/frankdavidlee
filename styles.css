@@ -255,9 +255,11 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .held-name { display: inline-flex; align-items: center; gap: 12px; font-size: clamp(1.125rem, 0.9rem + 0.9vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; color: var(--text-2); }
 .held-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--flaeche), 0 0 0 3px var(--rand-stark), var(--schatten); }
 .held-satz {
-  max-width: 15ch; font-size: clamp(2.5rem, 1.2rem + 5.4vw, 6.25rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.045em;
-  text-wrap: balance;
+  max-width: 23ch; font-size: clamp(2.375rem, 1.2rem + 5vw, 5.25rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.045em;
+  text-wrap: balance; hyphens: manual; -webkit-hyphens: manual; overflow-wrap: normal;
 }
+/* Jede Satzhälfte beginnt eine eigene Zeile; innerhalb wird ausgeglichen umbrochen. */
+.held-zeile { display: block; text-wrap: balance; }
 .verlauf {
   background: linear-gradient(100deg, var(--verlauf-a) 0%, var(--verlauf-b) 70%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
