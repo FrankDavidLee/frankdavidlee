@@ -30,3 +30,9 @@ Danach `node bauen.mjs` und `node pruefen.mjs` im Projektordner ausführen.
 **Nur Demodaten** auf Bildschirmfotos: keine echten Namen, Adressen,
 Bewerbungen oder Kundendaten. Bilder werden oben ausgerichtet beschnitten,
 wenn das Seitenverhältnis abweicht.
+
+## Bilder je Sprache
+
+Gibt es zusätzlich `<datei>-en-800.webp` (bzw. `<datei>-de-…`), zeigt die Seite dieser Sprache
+das eigene Bild; sonst das gemeinsame `<datei>-800.webp`. So können Bildschirmfotos auf der
+englischen Seite die englische Oberfläche zeigen.
