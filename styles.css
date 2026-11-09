@@ -168,6 +168,14 @@ button { font: inherit; color: inherit; }
 .nav-unten a[aria-current="page"] { color: var(--akzent); }
 .nav-unten a[aria-current="page"] .sym { background: var(--akzent-weich); }
 .nav-unten a:focus-visible { outline-offset: -4px; border-radius: 14px; }
+/* Wischen und Drücken wie in Arbeitseule (09.11.2026): angepeiltes Ziel leicht kleiner, kein Linkmenü. */
+.nav-unten ul { touch-action: pan-y; -webkit-user-select: none; user-select: none; }
+.nav-unten a { -webkit-tap-highlight-color: transparent; -webkit-touch-callout: none; -webkit-user-drag: none; }
+.nav-unten a .sym, .nav-unten a span { transition: transform 0.15s ease-out, background-color 0.2s, color 0.2s; }
+.nav-unten a[data-angepeilt] { color: var(--text-2); }
+.nav-unten a[data-angepeilt] .sym { transform: scale(0.9); background: var(--akzent-weich); }
+.nav-unten a[data-angepeilt] span { transform: scale(0.96); }
+@media (prefers-reduced-motion: reduce) { .nav-unten a[data-angepeilt] .sym, .nav-unten a[data-angepeilt] span { transform: none; } }
 body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom)); }
 @media (min-width: 1024px) {
   .nav-unten { display: none; }

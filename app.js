@@ -177,6 +177,68 @@
     if (location.hash === "#qr-website") qrOeffnen(null, "website");
   }
 
+
+  // Untere Navigation: seitlich wischen wählt das Ziel, Loslassen öffnet es; gedrückt = leicht kleiner.
+  // Gleiche Regeln wie Arbeitseule (lib/navSwipe): ab 12 px seitlich und 1,5× stärker als senkrecht wird es ein
+  // Wischen, senkrecht bleibt Scrollen, 48 px über der Leiste bricht ab, Bildschirmränder (16 px) gehören dem System.
+  var navUnten = doc.querySelector(".nav-unten ul");
+  if (navUnten && window.PointerEvent) {
+    var ziele = Array.prototype.slice.call(navUnten.querySelectorAll("a"));
+    var geste = null;
+    var klickSchlucken = false;
+    var markiere = function (i) {
+      ziele.forEach(function (a, k) { if (k === i) a.setAttribute("data-angepeilt", ""); else a.removeAttribute("data-angepeilt"); });
+    };
+    var indexAt = function (x, r) {
+      var rel = Math.min(Math.max(x - r.left, 0), r.width - 0.001);
+      return Math.floor((rel / r.width) * ziele.length);
+    };
+    var aktuell = ziele.findIndex(function (a) { return a.getAttribute("aria-current") === "page"; });
+    var ende = function () { geste = null; markiere(-1); };
+    navUnten.addEventListener("pointerdown", function (e) {
+      if (!e.isPrimary) return;
+      if (e.clientX < 16 || e.clientX > window.innerWidth - 16) return;
+      var r = navUnten.getBoundingClientRect();
+      markiere(indexAt(e.clientX, r));
+      geste = e.pointerType === "mouse" ? null : { id: e.pointerId, x0: e.clientX, y0: e.clientY, art: "offen", ziel: null, weg: false, r: r };
+    });
+    navUnten.addEventListener("pointermove", function (e) {
+      var g = geste;
+      if (!g || g.id !== e.pointerId) return;
+      if (g.art === "offen") {
+        var dx = Math.abs(e.clientX - g.x0), dy = Math.abs(e.clientY - g.y0);
+        if (dx >= 12 && dx >= dy * 1.5) {
+          g.art = "wischen";
+          try { navUnten.setPointerCapture(e.pointerId); } catch (_) { /* läuft ohne Bindung weiter */ }
+        } else if (dy >= 12 && dy > dx) { ende(); return; }
+      }
+      if (g.art !== "wischen") return;
+      g.weg = e.clientY < g.r.top - 48;
+      g.ziel = indexAt(e.clientX, g.r);
+      markiere(g.weg ? -1 : g.ziel);
+    });
+    navUnten.addEventListener("pointerup", function (e) {
+      var g = geste;
+      if (!g || g.id !== e.pointerId) { markiere(-1); return; }
+      var ziel = g.art === "wischen" && !g.weg && g.ziel !== null && g.ziel !== aktuell ? g.ziel : null;
+      if (g.art === "wischen") klickSchlucken = true;
+      ende();
+      if (ziel !== null) location.href = ziele[ziel].href;
+    });
+    navUnten.addEventListener("pointercancel", ende);
+    navUnten.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") ende(); });
+    navUnten.addEventListener("lostpointercapture", function (e) { if (e.target === navUnten && geste && geste.art === "wischen") ende(); });
+    navUnten.addEventListener("click", function (e) {
+      if (!klickSchlucken) return;
+      klickSchlucken = false; e.preventDefault(); e.stopPropagation();
+    }, true);
+    ziele.forEach(function (a) {
+      a.setAttribute("draggable", "false");
+      a.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+    });
+    window.addEventListener("pageshow", ende);
+  }
+
   var dialog = doc.querySelector("[data-lightbox]");
   var ausloeser = Array.prototype.slice.call(doc.querySelectorAll("[data-galerie-index]"));
   if (dialog && ausloeser.length && typeof dialog.showModal === "function") {
