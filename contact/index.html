@@ -29,8 +29,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles.css?v=ed6fd44eac">
-  <script src="/app.js?v=924e44e6d2" defer></script>
+  <link rel="stylesheet" href="/styles.css?v=be109d3010">
+  <script src="/app.js?v=b76b3dd522" defer></script>
 </head>
 <body class="">
   <a class="sprunglink" href="#inhalt">Skip to content</a>
@@ -63,11 +63,17 @@
             </div>
             <p class="kopier-meldung" role="status" aria-live="polite"></p>
           </li>
-          <li class="kontakt-karte einblenden">
-            <span class="kontakt-sym"><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5h18"/></svg></span>
-            <h2>LinkedIn</h2>
-            <p>Profile, CV and recommendations</p>
-            <a class="kontakt-link" href="https://www.linkedin.com/in/frank-david-lee" rel="noopener noreferrer"><span>linkedin.com/in/frank-david-lee</span><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a>
+          <li class="kontakt-karte kontakt-linkedin einblenden" id="linkedin">
+            <div class="linkedin-text">
+              <span class="kontakt-sym"><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3" y="7" width="18" height="13" rx="2.5"/><path d="M9 7V5.5A1.5 1.5 0 0 1 10.5 4h3A1.5 1.5 0 0 1 15 5.5V7"/><path d="M3 12.5h18"/></svg></span>
+              <h2>Let’s connect on LinkedIn</h2>
+              <p>I’m always happy to talk about AI and software development. Just scan it with your phone camera.</p>
+              <div class="knoepfe">
+                <a class="knopf primaer" href="https://www.linkedin.com/in/frank-david-lee" rel="noopener noreferrer"><span>Open LinkedIn profile</span><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 17 17 7"/><path d="M8 7h9v9"/></svg></a>
+                <button type="button" class="knopf zweit nur-js" data-qr-oeffnen><span>Show QR code full screen</span><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/><path d="M11 8.5v5"/><path d="M8.5 11h5"/></svg></button>
+              </div>
+            </div>
+            <figure class="qr-rahmen"><img src="/bilder/linkedin-qr.svg" alt="QR code to my LinkedIn profile" width="164" height="164" decoding="async"><figcaption>linkedin.com/in/frank-david-lee</figcaption></figure>
           </li>
           <li class="kontakt-karte einblenden">
             <span class="kontakt-sym"><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 5-3 14"/></svg></span>
@@ -82,6 +88,14 @@
             <a class="kontakt-link" href="/frank-david-lee.vcf" download="frank-david-lee.vcf" type="text/vcard"><span>Download vCard</span><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 4v11"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></a>
           </li>
         </ul>
+        <dialog class="qr-dialog" data-qr-dialog aria-label="LinkedIn QR code">
+          <div class="qr-dialog-innen">
+            <p class="qr-dialog-name">Frank David Lee</p>
+            <img src="/bilder/linkedin-qr.svg" alt="QR code to my LinkedIn profile" width="320" height="320" decoding="async">
+            <p class="qr-dialog-hinweis">Scan with your phone camera · linkedin.com/in/frank-david-lee</p>
+            <button type="button" class="knopf zweit" data-qr-schliessen><span>Close</span><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
+          </div>
+        </dialog>
         <p class="hinweis-klein">No contact form, no tracking: your message goes straight to my inbox.</p>
         <p class="hinweis-klein">Open to roles as AI Engineer, Agentic AI Engineer, Product AI Engineer or Senior Fullstack Developer – in Hamburg or remote.</p>
       </div>
