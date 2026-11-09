@@ -29,8 +29,8 @@
   <meta name="twitter:card" content="summary_large_image">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
   <link rel="manifest" href="/site.webmanifest">
-  <link rel="stylesheet" href="/styles.css?v=be109d3010">
-  <script src="/app.js?v=b76b3dd522" defer></script>
+  <link rel="stylesheet" href="/styles.css?v=233070056a">
+  <script src="/app.js?v=0de8b07977" defer></script>
 </head>
 <body class="">
   <a class="sprunglink" href="#inhalt">Skip to content</a>
@@ -91,8 +91,18 @@
         <dialog class="qr-dialog" data-qr-dialog aria-label="LinkedIn QR code">
           <div class="qr-dialog-innen">
             <p class="qr-dialog-name">Frank David Lee</p>
-            <img src="/bilder/linkedin-qr.svg" alt="QR code to my LinkedIn profile" width="320" height="320" decoding="async">
-            <p class="qr-dialog-hinweis">Scan with your phone camera · linkedin.com/in/frank-david-lee</p>
+            <div class="qr-wahl" role="group" aria-label="Choose QR code">
+              <button type="button" data-qr-tab="linkedin" aria-pressed="true">LinkedIn</button>
+              <button type="button" data-qr-tab="website" aria-pressed="false">Website</button>
+            </div>
+            <div class="qr-ansicht" data-qr-ansicht="linkedin">
+              <img src="/bilder/linkedin-qr.svg" alt="QR code to my LinkedIn profile" width="320" height="320" decoding="async">
+              <p class="qr-dialog-hinweis">Scan with your phone camera · linkedin.com/in/frank-david-lee</p>
+            </div>
+            <div class="qr-ansicht" data-qr-ansicht="website" hidden>
+              <img src="/bilder/website-qr-en.svg" alt="QR code to frankdavidlee.com" width="320" height="320" decoding="async">
+              <p class="qr-dialog-hinweis">Scan with your phone camera · frankdavidlee.com</p>
+            </div>
             <button type="button" class="knopf zweit" data-qr-schliessen><span>Close</span><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M6 6l12 12"/><path d="M18 6 6 18"/></svg></button>
           </div>
         </dialog>
