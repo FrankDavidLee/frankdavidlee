@@ -780,3 +780,19 @@ html:not(.js) .nur-js { display: none !important; }
 .dl-zeile input:focus-visible { outline: 2px solid var(--akzent); outline-offset: 2px; }
 .dl-meldung { min-height: 1.5em; margin: 10px 0 0; font-size: 0.95rem; }
 .dl-meldung.fehler { color: #d14343; }
+
+/* LinkedIn-QR auf der Kontaktseite (09.11.2026): Karte über die volle Breite, QR auf Weiß mit Ruhezone. */
+.kontakt-linkedin { display: grid; gap: 20px; align-items: center; }
+@media (min-width: 768px) { .kontakt-linkedin { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) auto; gap: 32px; } }
+.linkedin-text { display: flex; flex-direction: column; gap: 10px; }
+.linkedin-text > p { color: var(--text-2); max-width: 34rem; }
+.qr-rahmen { margin: 0; justify-self: center; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+.qr-rahmen img { display: block; width: 164px; height: 164px; padding: 10px; background: #ffffff; border-radius: 14px; box-shadow: 0 0 0 1px var(--rand), var(--schatten); }
+.qr-rahmen figcaption { font-size: 0.8125rem; color: var(--text-3); }
+.qr-dialog { border: 0; padding: 0; margin: auto; width: 100vw; height: 100dvh; max-width: none; max-height: none; background: #ffffff; color: #111827; }
+.qr-dialog::backdrop { background: #ffffff; }
+.qr-dialog-innen { height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px 16px; text-align: center; }
+.qr-dialog-innen img { width: min(78vw, 62dvh, 440px); height: auto; aspect-ratio: 1; }
+.qr-dialog-name { margin: 0; font-family: var(--schrift-gross); font-size: clamp(1.5rem, 1.1rem + 2vw, 2.25rem); font-weight: 700; letter-spacing: -0.03em; color: #111827; }
+.qr-dialog-hinweis { margin: 0; color: #4b5563; font-size: 0.9375rem; }
+.qr-dialog .knopf.zweit { color: #111827; background: #f3f4f6; border-color: #d1d5db; }

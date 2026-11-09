@@ -142,6 +142,30 @@
   });
 
   /* ---------- Bildansicht mit Tastatur, Escape und Fokusfalle ---------- */
+
+  // LinkedIn-QR groß anzeigen (Kontaktseite). Direktlink …/contact/#qr öffnet ihn sofort – praktisch auf Messen.
+  var qrDialog = doc.querySelector("[data-qr-dialog]");
+  if (qrDialog && typeof qrDialog.showModal === "function") {
+    var qrAusloeser = null;
+    var qrOeffnen = function (knopf) {
+      qrAusloeser = knopf || null;
+      if (!qrDialog.open) qrDialog.showModal();
+      var zu = qrDialog.querySelector("[data-qr-schliessen]");
+      if (zu) zu.focus();
+    };
+    doc.querySelectorAll("[data-qr-oeffnen]").forEach(function (k) {
+      k.addEventListener("click", function () { qrOeffnen(k); });
+    });
+    qrDialog.addEventListener("click", function (ev) {
+      if (ev.target === qrDialog || ev.target.closest("[data-qr-schliessen]")) qrDialog.close();
+    });
+    qrDialog.addEventListener("close", function () {
+      if (location.hash === "#qr") history.replaceState(null, "", location.pathname + location.search);
+      if (qrAusloeser) qrAusloeser.focus();
+    });
+    if (location.hash === "#qr") qrOeffnen(null);
+  }
+
   var dialog = doc.querySelector("[data-lightbox]");
   var ausloeser = Array.prototype.slice.call(doc.querySelectorAll("[data-galerie-index]"));
   if (dialog && ausloeser.length && typeof dialog.showModal === "function") {
