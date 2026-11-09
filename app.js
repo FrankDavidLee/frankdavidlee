@@ -147,7 +147,15 @@
   var qrDialog = doc.querySelector("[data-qr-dialog]");
   if (qrDialog && typeof qrDialog.showModal === "function") {
     var qrAusloeser = null;
-    var qrOeffnen = function (knopf) {
+    var qrZeige = function (art) {
+      qrDialog.querySelectorAll("[data-qr-ansicht]").forEach(function (v) { v.hidden = v.getAttribute("data-qr-ansicht") !== art; });
+      qrDialog.querySelectorAll("[data-qr-tab]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-qr-tab") === art)); });
+    };
+    qrDialog.querySelectorAll("[data-qr-tab]").forEach(function (b) {
+      b.addEventListener("click", function () { qrZeige(b.getAttribute("data-qr-tab")); });
+    });
+    var qrOeffnen = function (knopf, art) {
+      qrZeige(art || "linkedin");
       qrAusloeser = knopf || null;
       if (!qrDialog.open) qrDialog.showModal();
       var zu = qrDialog.querySelector("[data-qr-schliessen]");
@@ -160,10 +168,11 @@
       if (ev.target === qrDialog || ev.target.closest("[data-qr-schliessen]")) qrDialog.close();
     });
     qrDialog.addEventListener("close", function () {
-      if (location.hash === "#qr") history.replaceState(null, "", location.pathname + location.search);
+      if (location.hash === "#qr" || location.hash === "#qr-website") history.replaceState(null, "", location.pathname + location.search);
       if (qrAusloeser) qrAusloeser.focus();
     });
-    if (location.hash === "#qr") qrOeffnen(null);
+    if (location.hash === "#qr") qrOeffnen(null, "linkedin");
+    if (location.hash === "#qr-website") qrOeffnen(null, "website");
   }
 
   var dialog = doc.querySelector("[data-lightbox]");
