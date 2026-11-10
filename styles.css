@@ -569,7 +569,8 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .galerie-lupe .sym { width: 20px; height: 20px; }
 .galerie-knopf:hover .galerie-lupe, .galerie-knopf:focus-visible .galerie-lupe { opacity: 1; }
 @media (hover: none) { .galerie-lupe { opacity: 1; } }
-.fs-video { padding-block: clamp(32px, 5vw, 56px); border-top: 1px solid var(--rand); }
+.fs-video { padding-block: 0 clamp(32px, 5vw, 52px); }
+.fs-video .video figcaption span { font-size: 0.9375rem; color: var(--text-3); }
 .fs-weiter { display: grid; gap: 12px; padding-block: clamp(32px, 5vw, 64px); }
 @media (min-width: 640px) { .fs-weiter { grid-template-columns: 1fr 1fr; } .fs-weiter a[rel="next"] { text-align: right; } .fs-weiter a[rel="next"] span { justify-content: flex-end; } }
 .fs-weiter a {
