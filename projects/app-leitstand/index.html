@@ -61,6 +61,7 @@
       </header>
       <div class="huelle fs-buehne"><figure class="galerie-figur galerie-gross"><button type="button" class="galerie-knopf" data-galerie-index="0" aria-label="Enlarge image: App-Leitstand overview: key figures with sparklines, progress ring at 56 percent, burn-up chart of completed tasks with forecast and target date, stage bar"><div class="geraet geraet-desktop" style="--farbton:262"><div class="geraet-leiste" aria-hidden="true"><i></i><i></i><i></i><span>App-Leitstand</span></div><div class="geraet-schirm"><picture><source type="image/webp" srcset="/bilder/projekte/app-leitstand/fortschritt-en-800.webp 800w, /bilder/projekte/app-leitstand/fortschritt-en-1600.webp 1600w" sizes="(min-width: 1024px) 960px, 100vw"><img src="/bilder/projekte/app-leitstand/fortschritt-en-800.webp" alt="App-Leitstand overview: key figures with sparklines, progress ring at 56 percent, burn-up chart of completed tasks with forecast and target date, stage bar" width="1600" height="1000" decoding="async" sizes="(min-width: 1024px) 960px, 100vw"></picture></div></div><span class="galerie-lupe" aria-hidden="true"><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/><path d="M11 8.5v5"/><path d="M8.5 11h5"/></svg></span></button><figcaption>Progress at a glance: ring, burn-up chart with pace and a forecast to the target date, stages as a bar – hand-drawn SVG, no chart library.</figcaption></figure></div>
       <div class="huelle huelle-text">
+        <div class="kennzahlen"><dl><div><dt>version</dt><dd>0.6.0</dd></div><div><dt>pull requests</dt><dd>57</dd></div><div><dt>automated checks per run</dt><dd>317</dd></div></dl><p class="stand">As of 10 November 2026</p></div>
         <section class="fs-abschnitt einblenden" aria-labelledby="h-a0">
           <h2 id="h-a0">Problem</h2>
           <div class="fs-text">
@@ -77,7 +78,7 @@
         <section class="fs-abschnitt einblenden" aria-labelledby="h-a2">
           <h2 id="h-a2">Making data visible</h2>
           <div class="fs-text">
-            <ul class="punkte"><li>Progress per project with a burn-up chart, pace per week and a linear forecast to the target date; stages from the starter packages as a bar.</li><li>Honest, not prettified: every status change is logged by a database trigger; where no log exists yet, the line is dashed and labelled “derived”.</li><li>Kanban board: checklists with progress on the card, due dates, time in column, WIP limit, keyboard shortcuts.</li><li>Team progress from GitHub: progress per person from issues and pull requests, unassigned work, a chart with forecast – read only.</li><li>Read-only guest access: team members see selected projects via Cloudflare Access; the server allows guests only read requests from a fixed allowlist.</li><li>All charts hand-drawn (SVG, no library, no external request): light and dark, German and English, explorable by keyboard, with a table for screen readers.</li></ul>
+            <ul class="punkte"><li>Progress per project with a burn-up chart, pace per week and a linear forecast to the target date; stages from the starter packages as a bar.</li><li>Honest, not prettified: every status change is logged by a database trigger; where no log exists yet, the line is dashed and labelled “derived”.</li><li>Kanban board: checklists with progress on the card, due dates, time in column, WIP limit, keyboard shortcuts.</li><li>Team progress from GitHub: progress per person from issues and pull requests, unassigned work, a chart with forecast – read only.</li><li>Read-only guest access: team members see selected projects via Cloudflare Access; the server allows guests only read requests from a fixed allowlist – the one exception is a note to the owner, which arrives as a report. A test sends every write route as a guest and then compares all tables.</li><li>All charts hand-drawn (SVG, no library, no external request): light and dark, German and English, explorable by keyboard, with a table for screen readers.</li></ul>
           </div>
         </section>
         <section class="fs-abschnitt einblenden" aria-labelledby="h-a3">
@@ -96,7 +97,7 @@
         <section class="fs-abschnitt einblenden" aria-labelledby="h-a5">
           <h2 id="h-a5">Status</h2>
           <div class="fs-text">
-            <p>App-Leitstand already steers my own development, including the neuefische capstone project, and has been running online behind Cloudflare Access since 9 November 2026. An open-source release is in preparation.</p>
+            <p>Version 0.6.0 (10 November 2026). App-Leitstand already steers my own development, including the neuefische capstone project, and has been running online behind Cloudflare Access since 9 November 2026. Setting it up at home takes a double-click: a starter checks Node.js, installs, builds and opens the browser; an illustrated guide and a handbook explain every menu item. An open-source release is in preparation.</p>
           </div>
         </section>
       </div>
