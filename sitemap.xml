@@ -49,6 +49,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/contact/"/>
   </url>
   <url>
+    <loc>https://frankdavidlee.com/how-it-runs/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/how-it-runs/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/so-laeuft-es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/how-it-runs/"/>
+  </url>
+  <url>
+    <loc>https://frankdavidlee.com/de/so-laeuft-es/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/how-it-runs/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/so-laeuft-es/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/how-it-runs/"/>
+  </url>
+  <url>
     <loc>https://frankdavidlee.com/projects/arbeitseule/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/arbeitseule/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/arbeitseule/"/>

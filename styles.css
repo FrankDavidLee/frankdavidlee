@@ -812,3 +812,198 @@ html:not(.js) .nur-js { display: none !important; }
 .qr-wahl button:focus-visible { outline: 2px solid #2563eb; outline-offset: 2px; }
 .qr-ansicht { display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .qr-ansicht[hidden] { display: none; }
+
+/* ---------- Architektur-Seite (10.11.2026) ----------
+   Zeichnung als eingebettetes SVG (Quelle: workbench/architektur/diagramm.mjs), Farben über --d-…,
+   damit Hell und Dunkel stimmen. Eigene Strichsymbole, keine Markenlogos. */
+.arch {
+  --d-text: #0f172a; --d-text2: #475569; --d-linie: #334155; --d-halo: #ffffff;
+  --d-abz: #2563eb; --d-abz-text: #ffffff; --d-abz-rand: #ffffff;
+  --d-kasten: #ffffff; --d-kasten-rand: #cbd5e1; --d-dienst-rand: #94a3b8; --d-app-rand: #2563eb;
+  --d-mensch: #0f172a; --d-mensch-text: #ffffff; --d-mensch-text2: #cbd5e1;
+  --d-cf-bg: #fff6ec; --d-cf-rand: #f0a35c; --d-cf-text: #9a4d07;
+  --d-aws-bg: #f0f5ff; --d-aws-rand: #7ea2e8; --d-aws-text: #1e3f8a;
+  --d-gh-bg: #f3f4f6; --d-gh-rand: #9aa3af; --d-gh-text: #30363d;
+  --d-server-bg: rgba(255, 255, 255, 0.55); --d-server-rand: #1e3f8a;
+  --d-chip-cf: #ffe9d2; --d-chip-cf-text: #9a4d07; --d-chip-aws: #e1eafc; --d-chip-aws-text: #1e3f8a;
+  --d-chip-gh: #e9ebee; --d-chip-gh-text: #30363d; --d-chip-app: #dbe7ff; --d-chip-app-text: #1d4ed8;
+  --d-chip-extern: #eef1f5; --d-chip-extern-text: #475569; --d-chip-mensch: rgba(255, 255, 255, 0.14); --d-chip-mensch-text: #ffffff;
+  margin: 0;
+}
+@media (prefers-color-scheme: dark) {
+  .arch {
+    --d-text: #f5f5f7; --d-text2: #c2c2c8; --d-linie: #c2c2c8; --d-halo: #111113;
+    --d-abz: #7aa2ff; --d-abz-text: #000000; --d-abz-rand: #111113;
+    --d-kasten: #1c1c1f; --d-kasten-rand: rgba(255, 255, 255, 0.2); --d-dienst-rand: rgba(255, 255, 255, 0.32); --d-app-rand: #7aa2ff;
+    --d-mensch: #f5f5f7; --d-mensch-text: #000000; --d-mensch-text2: #3a3a40;
+    --d-cf-bg: rgba(240, 163, 92, 0.1); --d-cf-rand: rgba(240, 163, 92, 0.6); --d-cf-text: #f3b680;
+    --d-aws-bg: rgba(126, 162, 232, 0.1); --d-aws-rand: rgba(126, 162, 232, 0.6); --d-aws-text: #a9c1f5;
+    --d-gh-bg: rgba(255, 255, 255, 0.05); --d-gh-rand: rgba(255, 255, 255, 0.28); --d-gh-text: #e5e7eb;
+    --d-server-bg: rgba(255, 255, 255, 0.03); --d-server-rand: #a9c1f5;
+    --d-chip-cf: rgba(240, 163, 92, 0.2); --d-chip-cf-text: #f3b680; --d-chip-aws: rgba(126, 162, 232, 0.2); --d-chip-aws-text: #a9c1f5;
+    --d-chip-gh: rgba(255, 255, 255, 0.1); --d-chip-gh-text: #e5e7eb; --d-chip-app: rgba(122, 162, 255, 0.2); --d-chip-app-text: #a9c1f5;
+    --d-chip-extern: rgba(255, 255, 255, 0.1); --d-chip-extern-text: #c2c2c8; --d-chip-mensch: rgba(0, 0, 0, 0.1); --d-chip-mensch-text: #000000;
+  }
+}
+.huelle.huelle-weit { max-width: 92rem; }
+.arch-karte { border-radius: var(--r-xl); background: var(--flaeche); border: 1px solid var(--rand); box-shadow: var(--schatten-gross); overflow: hidden; }
+
+/* Kopf der Karte: Schrittwahl, Text zum gewählten Schritt, Blättern. Ohne JavaScript stehen alle Schritte als Liste da. */
+.arch-kopf { display: grid; gap: 16px 28px; padding: clamp(16px, 2.4vw, 28px); border-bottom: 1px solid var(--rand); }
+.arch-wahl { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.arch-wahl[hidden], .arch-blaettern[hidden] { display: none; }
+.arch-w {
+  min-height: 44px; min-width: 44px; padding: 0 10px; border-radius: 999px; border: 1px solid var(--rand-stark); background: var(--flaeche);
+  color: var(--text); font: inherit; font-weight: 650; font-variant-numeric: tabular-nums; cursor: pointer;
+  transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.2s var(--kurve);
+}
+.arch-w-alle { grid-column: span 2; padding: 0 14px; }
+.arch-w:hover { border-color: var(--akzent); }
+.arch-w[aria-pressed="true"] { background: var(--akzent); border-color: var(--akzent); color: var(--akzent-auf); }
+.arch-w:focus-visible, .arch-b:focus-visible { outline: 3px solid var(--akzent); outline-offset: 2px; }
+.arch-text h2, .arch-text h3 { font-family: var(--schrift-gross); font-size: clamp(1.1875rem, 1.05rem + 0.5vw, 1.4375rem); letter-spacing: -0.025em; line-height: 1.25; margin: 0; }
+.arch-text p { margin-top: 6px; color: var(--text-2); line-height: 1.55; max-width: 60rem; text-wrap: pretty; }
+.arch-schritte { list-style: none; margin: 0; padding: 0; display: grid; gap: 20px 32px; }
+.arch-eintrag[hidden] { display: none; }
+.arch-schritte .arch-eintrag { position: relative; padding-left: 48px; }
+.arch-nr {
+  position: absolute; left: 0; top: 0; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center;
+  font-weight: 700; font-size: 0.9375rem; font-variant-numeric: tabular-nums; color: var(--akzent-auf); background: var(--akzent);
+}
+.arch:not(.arch-js) .arch-schritte { margin-top: 20px; }
+@media (min-width: 900px) { .arch:not(.arch-js) .arch-schritte { grid-template-columns: 1fr 1fr; } }
+.arch-blaettern { display: flex; gap: 8px; }
+.arch-b {
+  display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--rand-stark);
+  background: var(--flaeche); color: var(--text); cursor: pointer; transition: border-color 0.2s, background 0.2s;
+}
+.arch-b:hover { border-color: var(--akzent); color: var(--akzent); }
+.arch-b .sym { width: 20px; height: 20px; }
+@media (max-width: 899px) { .arch-js .arch-blaettern { justify-content: flex-end; margin-top: -4px; } }
+@media (min-width: 560px) {
+  .arch-wahl { display: flex; flex-wrap: wrap; }
+  .arch-w-alle { flex: none; }
+  .arch-js .arch-text { min-height: 10.5rem; }
+}
+@media (min-width: 900px) {
+  .arch-js .arch-kopf { grid-template-columns: minmax(0, 1fr) auto; align-items: start; }
+  .arch-js .arch-wahl { grid-column: 1 / -1; }
+  .arch-js .arch-text { min-height: 7.75rem; }
+}
+
+/* Zeichnung: seitlich verschiebbar, wenn der Platz nicht reicht. */
+.arch-rahmen { overflow-x: auto; overscroll-behavior-x: contain; padding: clamp(10px, 1.6vw, 24px); scrollbar-width: thin; }
+.arch-rahmen:focus-visible { outline: 3px solid var(--akzent); outline-offset: -3px; }
+.arch-bild svg { display: block; width: 100%; min-width: 1180px; height: auto; font-family: var(--schrift); }
+.arch-karte figcaption {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding: 8px clamp(16px, 2.4vw, 28px) 12px;
+  border-top: 1px solid var(--rand); font-size: 0.9375rem; color: var(--text-3);
+}
+/* Kleine Bildschirme mit JavaScript: statt der großen Zeichnung die Vorschau ohne Beschriftung, der gewählte
+   Weg wird darin hervorgehoben; die Stationen stehen als Kette im Text. Ohne JavaScript: große Zeichnung, seitlich verschiebbar. */
+.arch-klein { display: none; }
+.arch-klein svg { display: block; width: 100%; height: auto; }
+@media (max-width: 899px) {
+  .arch-js .arch-bild { display: none; }
+  .arch-js .arch-klein { display: block; }
+  .arch-js .arch-text { min-height: 13.5rem; }
+}
+.arch-weg { display: flex; flex-wrap: wrap; gap: 8px 14px; margin-top: 12px !important; }
+.arch-kette { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.arch-kette > span { padding: 4px 11px; border-radius: 999px; background: var(--akzent-weich); color: var(--text); font-size: 0.875rem; font-weight: 600; white-space: nowrap; }
+.arch-kette i { display: grid; color: var(--text-3); }
+.arch-kette .sym { width: 15px; height: 15px; }
+.arch:not(.arch-js) .arch-weg { display: none; }
+.arch-rahmen svg [data-s] { transition: opacity 0.35s var(--kurve); }
+.arch-rahmen[data-schritt] svg [data-s] { opacity: 0.16; }
+.arch-rahmen[data-schritt="1"] svg [data-s~="1"], .arch-rahmen[data-schritt="2"] svg [data-s~="2"], .arch-rahmen[data-schritt="3"] svg [data-s~="3"], .arch-rahmen[data-schritt="4"] svg [data-s~="4"], .arch-rahmen[data-schritt="5"] svg [data-s~="5"], .arch-rahmen[data-schritt="6"] svg [data-s~="6"], .arch-rahmen[data-schritt="7"] svg [data-s~="7"], .arch-rahmen[data-schritt="8"] svg [data-s~="8"] { opacity: 1; }
+.arch-fluss { stroke: var(--d-abz); stroke-width: 4.5; stroke-linecap: round; stroke-dasharray: 0.1 16; opacity: 0; }
+.arch-klein .arch-fluss { stroke-width: 11; stroke-dasharray: 0.1 32; }
+.arch-mini .arch-fluss { display: none; }
+.arch-klein [data-k] rect { stroke-width: 2.5; }
+.arch-rahmen[data-schritt="1"] .arch-klein [data-k][data-s~="1"] rect, .arch-rahmen[data-schritt="2"] .arch-klein [data-k][data-s~="2"] rect, .arch-rahmen[data-schritt="3"] .arch-klein [data-k][data-s~="3"] rect, .arch-rahmen[data-schritt="4"] .arch-klein [data-k][data-s~="4"] rect, .arch-rahmen[data-schritt="5"] .arch-klein [data-k][data-s~="5"] rect, .arch-rahmen[data-schritt="6"] .arch-klein [data-k][data-s~="6"] rect, .arch-rahmen[data-schritt="7"] .arch-klein [data-k][data-s~="7"] rect, .arch-rahmen[data-schritt="8"] .arch-klein [data-k][data-s~="8"] rect { stroke: var(--d-abz) !important; stroke-width: 5; }
+.arch-rahmen[data-schritt="1"] svg [data-s~="1"] .arch-fluss, .arch-rahmen[data-schritt="2"] svg [data-s~="2"] .arch-fluss, .arch-rahmen[data-schritt="3"] svg [data-s~="3"] .arch-fluss, .arch-rahmen[data-schritt="4"] svg [data-s~="4"] .arch-fluss, .arch-rahmen[data-schritt="5"] svg [data-s~="5"] .arch-fluss, .arch-rahmen[data-schritt="6"] svg [data-s~="6"] .arch-fluss, .arch-rahmen[data-schritt="7"] svg [data-s~="7"] .arch-fluss, .arch-rahmen[data-schritt="8"] svg [data-s~="8"] .arch-fluss { opacity: 1; }
+@media (prefers-reduced-motion: no-preference) {
+  .arch-rahmen[data-schritt="1"] svg [data-s~="1"] .arch-fluss, .arch-rahmen[data-schritt="2"] svg [data-s~="2"] .arch-fluss, .arch-rahmen[data-schritt="3"] svg [data-s~="3"] .arch-fluss, .arch-rahmen[data-schritt="4"] svg [data-s~="4"] .arch-fluss, .arch-rahmen[data-schritt="5"] svg [data-s~="5"] .arch-fluss, .arch-rahmen[data-schritt="6"] svg [data-s~="6"] .arch-fluss, .arch-rahmen[data-schritt="7"] svg [data-s~="7"] .arch-fluss, .arch-rahmen[data-schritt="8"] svg [data-s~="8"] .arch-fluss { animation: arch-fluss 1.8s linear infinite; }
+}
+@keyframes arch-fluss { to { stroke-dashoffset: -32.2; } }
+.arch-abschnitt-zahlen, .huelle-weit + .huelle > .kennzahlen { margin-top: clamp(28px, 4vw, 48px); }
+
+/* Karten: Bausteine, Grundsätze, Abwägungen. */
+.arch-karten { list-style: none; margin: 0; padding: 0; display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); }
+@media (min-width: 1024px) { .arch-karten { gap: 20px; } .arch-grundsaetze, .arch-abwaegung { grid-template-columns: repeat(3, 1fr); } .arch-bausteine { grid-template-columns: repeat(4, 1fr); } }
+.arch-karten > li { padding: clamp(20px, 2.5vw, 28px); border-radius: var(--r-l); background: var(--flaeche); border: 1px solid var(--rand); box-shadow: var(--schatten); }
+.arch-karten .bento-sym { margin-bottom: 18px; }
+.arch-karten h3 { font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem); letter-spacing: -0.025em; line-height: 1.25; }
+.arch-karten > li > p { margin-top: 8px; color: var(--text-2); line-height: 1.55; }
+.arch-karten .punkte { margin-top: 14px; gap: 10px; color: var(--text-2); font-size: 0.9875rem; line-height: 1.5; }
+.arch-ton-cf .bento-sym { color: #9a4d07; background: #ffe9d2; }
+.arch-ton-aws .bento-sym { color: #1e3f8a; background: #e1eafc; }
+.arch-ton-gh .bento-sym { color: #30363d; background: #e9ebee; }
+.arch-ton-ki .bento-sym { color: #5b2fd6; background: #ece5ff; }
+@media (prefers-color-scheme: dark) {
+  .arch-ton-cf .bento-sym { color: #f3b680; background: rgba(240, 163, 92, 0.18); }
+  .arch-ton-aws .bento-sym { color: #a9c1f5; background: rgba(126, 162, 232, 0.18); }
+  .arch-ton-gh .bento-sym { color: #e5e7eb; background: rgba(255, 255, 255, 0.1); }
+  .arch-ton-ki .bento-sym { color: #c9b8ff; background: rgba(183, 156, 255, 0.18); }
+}
+
+/* Verweis auf die Architektur-Seite: Karte mit Vorschau der Zeichnung. */
+.arch-hinweis {
+  position: relative; display: grid; gap: 20px 40px; align-items: center; overflow: hidden; padding: clamp(22px, 3vw, 36px);
+  border-radius: var(--r-l); background: var(--flaeche); border: 1px solid var(--rand); box-shadow: var(--schatten); margin-top: clamp(20px, 3vw, 32px);
+  transition: transform 0.4s var(--kurve), box-shadow 0.4s var(--kurve);
+}
+.arch-hinweis:has(.karten-link:focus-visible) { outline: 3px solid var(--akzent); outline-offset: 4px; }
+.arch-hinweis-marke { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 10px; font-size: 0.8125rem; font-weight: 650; letter-spacing: 0.08em; text-transform: uppercase; color: var(--akzent); }
+.arch-hinweis-marke .sym { width: 18px; height: 18px; }
+.arch-hinweis h2, .arch-hinweis h3 { font-size: clamp(1.375rem, 1.15rem + 0.9vw, 1.875rem); letter-spacing: -0.03em; line-height: 1.15; margin: 0; }
+.arch-hinweis p:not(.arch-hinweis-marke) { margin-top: 10px; color: var(--text-2); max-width: 34rem; }
+.arch-hinweis .mehr { margin-top: 16px; }
+.arch-mini { border-radius: var(--r-m); background: var(--getoent); border: 1px solid var(--rand); padding: 10px; }
+.arch-mini svg { display: block; width: 100%; height: auto; }
+@media (min-width: 760px) { .arch-hinweis { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); } }
+.karten-drei { grid-template-columns: repeat(auto-fit, minmax(min(100%, 248px), 1fr)); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .arch-hinweis:hover { transform: translateY(-4px); box-shadow: var(--schatten-gross); }
+  .arch-hinweis:hover .mehr .sym { transform: translateX(4px); }
+}
+.fallstudie .arch-hinweis { margin-top: clamp(28px, 4vw, 44px); }
+@media print { .arch-wahl, .arch-blaettern { display: none !important; } .arch-eintrag[hidden] { display: block !important; } .arch-bild svg { min-width: 0; } }
+
+/* ---------- Startseite: Produkt im Kopf, solange kein Video hinterlegt ist ---------- */
+.held-schau { position: relative; margin: 0; container-type: inline-size; }
+.held-schau-buehne { position: relative; padding: 0 8cqw 6cqw 0; }
+.held-schau-buehne .geraet-mobil { position: absolute; z-index: 1; right: 0; bottom: 0; width: 22cqw; margin: 0; padding: 0.66cqw; border-radius: 3.25cqw; }
+.held-schau-buehne .geraet-mobil .geraet-schirm { border-radius: 2.6cqw; }
+.held-schau-buehne .geraet-mobil .geraet-kerbe { top: 1.4cqw; height: 1.45cqw; }
+.held-schau figcaption { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 18px; }
+.held-schau figcaption strong { font-family: var(--schrift-gross); font-size: 1.375rem; letter-spacing: -0.025em; line-height: 1.2; margin-top: 4px; }
+.held-schau figcaption > span:not(.status):not(.mehr) { color: var(--text-2); }
+.held-schau .mehr { margin-top: 6px; }
+.held-schau:has(.karten-link:focus-visible) { outline: 3px solid var(--akzent); outline-offset: 6px; border-radius: var(--r-m); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .held-schau-buehne { transition: transform 0.5s var(--kurve); }
+  .held-schau:hover .held-schau-buehne { transform: translateY(-4px); }
+  .held-schau:hover .mehr .sym { transform: translateX(4px); }
+}
+
+/* ---------- Projektseite: Ablauf in Schritten ---------- */
+.ablauf-abschnitt { padding-block: 0 clamp(28px, 4vw, 44px); }
+.ablauf-abschnitt h2 { font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem); letter-spacing: -0.03em; line-height: 1.15; margin-bottom: clamp(20px, 3vw, 28px); }
+.ablauf { list-style: none; margin: 0; padding: 0; display: grid; gap: 22px; }
+.ablauf li { position: relative; padding-left: 64px; min-height: 46px; }
+.ablauf-sym { position: absolute; left: 0; top: 0; z-index: 1; display: grid; place-items: center; width: 46px; height: 46px; border-radius: 14px; color: var(--akzent); background: color-mix(in srgb, var(--akzent) 12%, var(--bg)); }
+.ablauf-sym .sym { width: 24px; height: 24px; }
+.ablauf li:not(:last-child)::after { content: ""; position: absolute; left: 22px; top: 52px; bottom: -16px; width: 2px; border-radius: 2px; background: var(--rand-stark); }
+.ablauf h3 { font-size: 1.125rem; letter-spacing: -0.02em; line-height: 1.3; }
+.ablauf-nr { display: block; font-family: var(--mono); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.04em; color: var(--text-3); }
+.ablauf p { margin-top: 4px; color: var(--text-2); font-size: 0.9875rem; line-height: 1.5; }
+@media (min-width: 760px) {
+  .ablauf { grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 16px; }
+  .ablauf li { padding: 62px 0 0; }
+  .ablauf li:not(:last-child)::after { left: 54px; right: -8px; top: 22px; bottom: auto; width: auto; height: 2px; }
+}
+
+/* Kontakt: zwei Spalten, damit die kleinen Karten die Zeile füllen. */
+@media (min-width: 768px) { .kontakt-raster { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

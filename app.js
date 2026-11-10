@@ -318,6 +318,75 @@
       if (zuletzt) zuletzt.focus();
     });
   }
+
+  /* ---------- Architektur: Führung durch die acht Schritte ----------
+     Ohne JavaScript stehen alle Schritte als Liste über der Zeichnung. Mit JavaScript zeigt die Karte
+     einen Schritt und hebt dessen Weg in der Zeichnung hervor (auf kleinen Bildschirmen in der Vorschau). */
+  var arch = doc.querySelector("[data-arch]");
+  if (arch) {
+    var archBild = arch.querySelector(".arch-bild");
+    var archRahmen = arch.querySelector(".arch-rahmen");
+    var archWahl = arch.querySelector(".arch-wahl");
+    var archKnoepfe = Array.prototype.slice.call(archWahl.querySelectorAll("[data-schritt]"));
+    var archEintraege = Array.prototype.slice.call(arch.querySelectorAll(".arch-eintrag"));
+    var archStand = 0;
+    var archZeige = function (n) {
+      if (n > 0) archRahmen.setAttribute("data-schritt", String(n)); else archRahmen.removeAttribute("data-schritt");
+    };
+    var archWaehle = function (n, schieben) {
+      archStand = n;
+      archKnoepfe.forEach(function (b) { b.setAttribute("aria-pressed", String(Number(b.getAttribute("data-schritt")) === n)); });
+      archEintraege.forEach(function (e) { e.hidden = Number(e.getAttribute("data-schritt")) !== n; });
+      archZeige(n);
+      if (!schieben) return;
+      // Passt die Zeichnung nicht in den Rahmen (mittlere Breiten), fährt sie zum gewählten Weg.
+      requestAnimationFrame(function () {
+        var breit = archRahmen.scrollWidth > archRahmen.clientWidth + 4, hoch = archRahmen.scrollHeight > archRahmen.clientHeight + 4;
+        if (!breit && !hoch) return;
+        var zielX = 0, zielY = 0;
+        if (n > 0) {
+          var l = Infinity, r = -Infinity, o = Infinity, u = -Infinity;
+          Array.prototype.forEach.call(archBild.querySelectorAll('[data-k][data-s~="' + n + '"]'), function (g) {
+            var q = g.getBoundingClientRect();
+            l = Math.min(l, q.left); r = Math.max(r, q.right); o = Math.min(o, q.top); u = Math.max(u, q.bottom);
+          });
+          if (l === Infinity) return;
+          var rr = archRahmen.getBoundingClientRect();
+          zielX = archRahmen.scrollLeft + (l + r) / 2 - rr.left - rr.width / 2;
+          zielY = archRahmen.scrollTop + (o + u) / 2 - rr.top - rr.height / 2;
+        }
+        archRahmen.scrollTo({ left: Math.max(0, zielX), top: Math.max(0, zielY), behavior: bewegungOk ? "smooth" : "auto" });
+      });
+    };
+    arch.classList.add("arch-js");
+    archWahl.hidden = false;
+    arch.querySelector(".arch-blaettern").hidden = false;
+    archWaehle(0, false);
+    archWahl.addEventListener("click", function (ev) {
+      var b = ev.target.closest("[data-schritt]");
+      if (b) archWaehle(Number(b.getAttribute("data-schritt")), true);
+    });
+    // Vorschau beim Überfahren mit der Maus; die Auswahl selbst bleibt.
+    archKnoepfe.forEach(function (b) {
+      b.addEventListener("pointerenter", function (ev) { if (ev.pointerType === "mouse") archZeige(Number(b.getAttribute("data-schritt"))); });
+      b.addEventListener("pointerleave", function (ev) { if (ev.pointerType === "mouse") archZeige(archStand); });
+    });
+    arch.addEventListener("click", function (ev) {
+      var b = ev.target.closest("[data-arch-blaettern]");
+      if (!b) return;
+      var max = archKnoepfe.length - 1;
+      archWaehle((archStand + Number(b.getAttribute("data-arch-blaettern")) + max + 1) % (max + 1), true);
+    });
+    archWahl.addEventListener("keydown", function (ev) {
+      if (ev.key !== "ArrowRight" && ev.key !== "ArrowLeft") return;
+      var i = archKnoepfe.indexOf(doc.activeElement);
+      if (i < 0) return;
+      ev.preventDefault();
+      var k = archKnoepfe[(i + (ev.key === "ArrowRight" ? 1 : -1) + archKnoepfe.length) % archKnoepfe.length];
+      k.focus();
+      archWaehle(Number(k.getAttribute("data-schritt")), true);
+    });
+  }
   }
   initSeite();
 
