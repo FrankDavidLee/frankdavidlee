@@ -964,6 +964,9 @@ html:not(.js) .nur-js { display: none !important; }
 .arch-mini svg { display: block; width: 100%; height: auto; }
 @media (min-width: 760px) { .arch-hinweis { grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); } }
 .karten-drei { grid-template-columns: repeat(auto-fit, minmax(min(100%, 248px), 1fr)); }
+.arch-app .punkte { margin-top: 14px; gap: 10px; color: var(--text-2); font-size: 0.9875rem; line-height: 1.5; }
+.arch-app .mehr { margin-top: 16px; }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .arch-app:hover .mehr .sym { transform: translateX(4px); } }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) {
   .arch-hinweis:hover { transform: translateY(-4px); box-shadow: var(--schatten-gross); }
   .arch-hinweis:hover .mehr .sym { transform: translateX(4px); }
