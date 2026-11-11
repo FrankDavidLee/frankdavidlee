@@ -260,8 +260,9 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   @keyframes puls { from { transform: scale(1); opacity: 0.6; } to { transform: scale(3); opacity: 0; } }
 }
 .held h1 { display: flex; flex-direction: column; gap: 16px; }
-.held-name { display: inline-flex; align-items: center; gap: 12px; font-size: clamp(1.125rem, 0.9rem + 0.9vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; color: var(--text-2); }
-.held-avatar { flex: none; width: 44px; height: 44px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--flaeche), 0 0 0 3px var(--rand-stark), var(--schatten); }
+.held-name { display: inline-flex; align-items: center; gap: 14px; font-size: clamp(1.125rem, 0.9rem + 0.9vw, 1.5rem); font-weight: 600; letter-spacing: -0.01em; color: var(--text-2); }
+.held-avatar { flex: none; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; box-shadow: 0 0 0 2px var(--flaeche), 0 0 0 3px var(--rand-stark), var(--schatten); }
+@media (min-width: 768px) { .held-avatar { width: 72px; height: 72px; } }
 .held-satz {
   max-width: 23ch; font-size: clamp(2.375rem, 1.2rem + 5vw, 5.25rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.045em;
   text-wrap: balance; hyphens: manual; -webkit-hyphens: manual; overflow-wrap: normal;
