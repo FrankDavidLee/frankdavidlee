@@ -7,9 +7,66 @@
   var doc = document;
   var root = doc.documentElement;
 
+  /* ---------- Hell/Dunkel-Schalter ----------
+     Ohne Wahl folgt die Seite dem Gerät. Eine bewusste Wahl steht nur als data-theme am <html>
+     und lebt im Arbeitsspeicher dieser Seite: Beim Seitenwechsel ohne Neuladen bleibt sie von
+     selbst, bei einem vollständigen Laden (z. B. Sprachwechsel) reist sie einmalig in der Adresse
+     mit (?theme=…) und wird dort sofort wieder entfernt. Gespeichert wird nichts. */
+  var dunkelMq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  var themaWahl = root.getAttribute("data-theme");
+  if (themaWahl !== "dark" && themaWahl !== "light") { themaWahl = null; root.removeAttribute("data-theme"); }
+  if (/[?&]theme=/.test(location.search) && history.replaceState) {
+    var ohne = new URL(location.href);
+    ohne.searchParams.delete("theme");
+    history.replaceState(history.state, "", ohne.pathname + ohne.search + ohne.hash);
+  }
+  function themaGeraet() { return dunkelMq && dunkelMq.matches ? "dark" : "light"; }
+  function themaAktiv() { return themaWahl || themaGeraet(); }
+  function themaZeigen() {
+    var dunkel = themaAktiv() === "dark";
+    Array.prototype.forEach.call(doc.querySelectorAll(".themawahl"), function (k) {
+      k.setAttribute("aria-pressed", dunkel ? "true" : "false");
+    });
+    // Farbe der Browserleiste: bei bewusster Wahl gilt sie unabhängig vom Gerät.
+    Array.prototype.forEach.call(doc.querySelectorAll('meta[name="theme-color"][data-thema]'), function (m) {
+      if (!m.hasAttribute("data-farbe")) m.setAttribute("data-farbe", m.getAttribute("content"));
+    });
+    var farbe = {};
+    Array.prototype.forEach.call(doc.querySelectorAll('meta[name="theme-color"][data-thema]'), function (m) {
+      farbe[m.getAttribute("data-thema")] = m.getAttribute("data-farbe");
+    });
+    Array.prototype.forEach.call(doc.querySelectorAll('meta[name="theme-color"][data-thema]'), function (m) {
+      m.setAttribute("content", themaWahl ? farbe[themaWahl] : m.getAttribute("data-farbe"));
+    });
+  }
+  function themaSetzen(neu) {
+    // Entspricht die Wahl dem Gerät, gilt wieder „dem Gerät folgen“.
+    themaWahl = neu === themaGeraet() ? null : neu;
+    if (themaWahl) root.setAttribute("data-theme", themaWahl);
+    else root.removeAttribute("data-theme");
+    themaZeigen();
+  }
+  doc.addEventListener("click", function (ev) {
+    var k = ev.target.closest && ev.target.closest(".themawahl");
+    if (!k) return;
+    themaSetzen(themaAktiv() === "dark" ? "light" : "dark");
+  });
+  if (dunkelMq) {
+    var mqWechsel = function () { if (themaWahl === themaGeraet()) themaSetzen(themaWahl); else themaZeigen(); };
+    if (dunkelMq.addEventListener) dunkelMq.addEventListener("change", mqWechsel);
+    else if (dunkelMq.addListener) dunkelMq.addListener(mqWechsel);
+  }
+  /* Vollständiges Laden einer internen Adresse: eine bewusste Wahl reist einmalig mit. */
+  function vollLaden(url) {
+    var ziel = new URL(url.href);
+    if (themaWahl) ziel.searchParams.set("theme", themaWahl);
+    location.href = ziel.href;
+  }
+
   /* Alles, was zu einer Seite gehört, steckt in initSeite(): beim ersten Laden und nach jedem
      Seitenwechsel ohne Neuladen. */
   function initSeite(nachWechsel) {
+  themaZeigen();
   /* ---------- Sanftes Einblenden (nur wenn Bewegung erlaubt) ---------- */
   var bewegungOk = window.matchMedia && window.matchMedia("(prefers-reduced-motion: no-preference)").matches;
   var elemente = Array.prototype.slice.call(doc.querySelectorAll(".einblenden"));
@@ -223,7 +280,7 @@
       var ziel = g.art === "wischen" && !g.weg && g.ziel !== null && g.ziel !== aktuell ? g.ziel : null;
       if (g.art === "wischen") klickSchlucken = true;
       ende();
-      if (ziel !== null) location.href = ziele[ziel].href;
+      if (ziel !== null) vollLaden(new URL(ziele[ziel].href, location.href));
     });
     navUnten.addEventListener("pointercancel", ende);
     navUnten.addEventListener("pointerleave", function (e) { if (e.pointerType === "mouse") ende(); });
@@ -477,7 +534,7 @@
       var css = function (d) { var l = d.querySelector('link[rel="stylesheet"]'); return l && l.getAttribute("href"); };
       if (!neu.querySelector("main") || neu.querySelector('meta[http-equiv="refresh"]') ||
           neu.documentElement.lang !== root.lang || css(neu) !== css(doc)) {
-        location.href = url.href;
+        vollLaden(url);
         return;
       }
       if (push) {
@@ -498,7 +555,7 @@
       };
       if (bewegung && doc.startViewTransition) doc.startViewTransition(fertig);
       else fertig();
-    }).catch(function () { geruestWeg(); location.href = url.href; });
+    }).catch(function () { geruestWeg(); vollLaden(url); });
   }
   doc.addEventListener("click", function (ev) {
     if (ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
