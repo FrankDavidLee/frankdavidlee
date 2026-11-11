@@ -62,7 +62,7 @@
       </header>
       <div class="huelle fs-buehne"><figure class="galerie-figur galerie-gross"><button type="button" class="galerie-knopf" data-galerie-index="0" aria-label="Bild vergrößern: Streamlit-Demo: Nutzer-ID eingeben und fünf Filmempfehlungen mit vorhergesagter Bewertung erhalten"><div class="geraet geraet-desktop" style="--farbton:12"><div class="geraet-leiste" aria-hidden="true"><i></i><i></i><i></i><span>Movie Recommender</span></div><div class="geraet-schirm"><picture><source type="image/webp" srcset="/bilder/projekte/movie-recommender/app-800.webp 800w, /bilder/projekte/movie-recommender/app-1600.webp 1600w" sizes="(min-width: 1024px) 960px, 100vw"><img src="/bilder/projekte/movie-recommender/app-800.webp" alt="Streamlit-Demo: Nutzer-ID eingeben und fünf Filmempfehlungen mit vorhergesagter Bewertung erhalten" width="1600" height="1000" decoding="async" sizes="(min-width: 1024px) 960px, 100vw"></picture></div></div><span class="galerie-lupe" aria-hidden="true"><svg class="sym" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="11" cy="11" r="6.5"/><path d="m16 16 4.5 4.5"/><path d="M11 8.5v5"/><path d="M8.5 11h5"/></svg></span></button><figcaption>Persönliche Empfehlungen: Nutzer-ID eingeben, die FastAPI liefert die Top-Filme mit vorhergesagter Bewertung.</figcaption></figure></div>
       <div class="huelle huelle-text">
-        <div class="kennzahlen"><dl><div><dt>Bewertungen (MovieLens 20M)</dt><dd>20 Mio.</dd></div><div><dt>RMSE, ≈ 5 % besser als die Baseline</dt><dd>0,80</dd></div><div><dt>Training je Lauf</dt><dd>≈ 20 s</dd></div></dl></div>
+        <div class="kennzahlen"><dl><div><dt>Bewertungen (MovieLens 20M)</dt><dd>20 Mio.</dd></div><div><dt>RMSE auf der Teststichprobe (MAE ≈ 0,68)</dt><dd>0,90</dd></div><div><dt>Training je Lauf</dt><dd>≈ 30 s</dd></div></dl></div>
         <section class="fs-video einblenden" aria-labelledby="h-video"><h2 id="h-video">Produkttour im Video</h2><figure class="video"><video controls preload="none" playsinline poster="/videos/movie-recommender-de.webp" width="1280" height="720" aria-label="Projekttour Movie Recommender, etwa 45 Sekunden, ohne Ton, mit Untertiteln"><source src="/videos/movie-recommender-de.mp4" type="video/mp4"></video><figcaption><span>Ohne Ton, mit Untertiteln. Alle Daten im Video sind erfunden.</span></figcaption></figure></section>
         <section class="fs-abschnitt einblenden" aria-labelledby="h-a0">
           <h2 id="h-a0">Überblick</h2>
@@ -85,7 +85,7 @@
         <section class="fs-abschnitt einblenden" aria-labelledby="h-a3">
           <h2 id="h-a3">Ergebnis und Ausblick</h2>
           <div class="fs-text">
-            <p>Auf der Entwicklungsstichprobe: RMSE ≈ 0,80, rund 5 % besser als die Baseline, etwa 20 Sekunden Training je Lauf und schnelle Vorhersagen. Das entspricht MLOps-Reifegrad 1: ein automatisierter Lebenszyklus.</p>
+            <p>Auf der Teststichprobe: RMSE ≈ 0,90 und MAE ≈ 0,68, etwa 30 Sekunden Training je Lauf auf rund 12.000 Bewertungen und schnelle Vorhersagen. Das entspricht MLOps-Reifegrad 1: ein automatisierter Lebenszyklus.</p>
             <p>Nächster Schritt wäre Reifegrad 2 mit CI/CD über GitHub Actions, Monitoring mit Prometheus und Grafana und Drift-Erkennung mit Evidently; die Vision sind nachvollziehbare Modellherkunft, Prüfung auf Verzerrungen und ein Feature Store.</p>
           </div>
         </section>
