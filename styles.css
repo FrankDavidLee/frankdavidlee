@@ -1084,3 +1084,18 @@ html:not(.js) .nur-js { display: none !important; }
 
 /* Kontakt: zwei Spalten, damit die kleinen Karten die Zeile füllen. */
 @media (min-width: 768px) { .kontakt-raster { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Klassisches Telefon (`"rahmen": "klassisch"`): helles Gehäuse mit Hörer oben und Taste unten,
+   eckiger Bildschirm ohne Statusleiste. Höhen über aspect-ratio der Leisten, damit alles mit der
+   Rahmenbreite skaliert. Steht am Dateiende, damit es die Rundungen der Kontexte übersteuert. */
+.geraet-mobil.geraet-klassisch {
+  background: linear-gradient(145deg, #f4f5f7, #c8ccd5);
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.14) inset, var(--schatten-gross);
+}
+.geraet-mobil.geraet-klassisch .geraet-glas { border-radius: 3px; background: #1c1a19; box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.35); }
+.geraet-ohr, .geraet-taste { display: flex; align-items: center; justify-content: center; }
+.geraet-ohr { aspect-ratio: 100 / 16; gap: 4%; }
+.geraet-ohr i { width: 20%; aspect-ratio: 9 / 1; border-radius: 999px; background: #4a4e57; }
+.geraet-ohr b { width: 3%; aspect-ratio: 1; border-radius: 50%; background: #4a4e57; }
+.geraet-taste { aspect-ratio: 100 / 19; }
+.geraet-taste i { width: 12.5%; aspect-ratio: 1; border-radius: 50%; border: 2px solid rgba(15, 23, 42, 0.28); background: linear-gradient(145deg, #e3e5ea, #f7f8fa); }
