@@ -416,6 +416,12 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .geraet-zeichen .sym { width: 4.4cqw; height: 4.4cqw; stroke-width: 2.4; }
 .geraet-zeichen .sym:last-child { width: 5.6cqw; height: 5.6cqw; stroke-width: 1.8; }
 .geraet-schirm img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+/* Aufnahme mit eigenem Rand oben (Spiel im Vollbild): Statusleiste über dem Bild, das Bild beginnt
+   ganz oben; der Rest der gleich hohen Glasfläche trägt die Randfarbe. */
+.geraet-status-ueber .geraet-glas { position: relative; background: var(--status-bg, var(--flaeche)); }
+.geraet-status-ueber .geraet-status { position: absolute; inset: 0 0 auto 0; z-index: 1; background: transparent; }
+.geraet-status-ueber .geraet-schirm { aspect-ratio: 430 / 990; background: var(--status-bg, var(--flaeche)); }
+.geraet-status-ueber .geraet-schirm img { object-fit: contain; }
 .geraet-schirm picture { display: contents; }
 
 .platzhalter {
