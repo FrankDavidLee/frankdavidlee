@@ -402,8 +402,19 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   width: min(100%, 300px); margin-inline: auto; padding: 9px; border-radius: 44px;
   background: linear-gradient(145deg, #2a2a2e, #0c0c0e); box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08) inset, var(--schatten-gross);
 }
-.geraet-mobil .geraet-schirm { aspect-ratio: 800 / 1732; border-radius: 35px; background: var(--flaeche); }
-.geraet-kerbe { position: absolute; z-index: 2; top: 19px; left: 50%; width: 30%; height: 20px; transform: translateX(-50%); border-radius: 999px; background: #0c0c0e; }
+/* Handy: Statusleiste mit Aussparung über der Aufnahme (wie auf einem echten Telefon) — die
+   Aussparung liegt nie über der Kopfzeile der gezeigten App. Größen in cqw der Glasfläche. */
+.geraet-glas { border-radius: 35px; overflow: hidden; background: var(--flaeche); container-type: inline-size; }
+.geraet-mobil .geraet-schirm { aspect-ratio: 800 / 1732; background: var(--flaeche); }
+.geraet-status {
+  position: relative; aspect-ratio: 430 / 59; display: flex; align-items: center; justify-content: space-between; padding-inline: 8cqw;
+  background: var(--status-bg, #ffffff); color: var(--status-fg, #0f172a);
+  font-size: 4cqw; font-weight: 600; line-height: 1; font-variant-numeric: tabular-nums;
+}
+.geraet-insel { position: absolute; left: 50%; top: 50%; width: 29%; height: 62%; transform: translate(-50%, -50%); border-radius: 999px; background: #0c0c0e; }
+.geraet-zeichen { display: flex; align-items: center; gap: 1cqw; }
+.geraet-zeichen .sym { width: 4.4cqw; height: 4.4cqw; stroke-width: 2.4; }
+.geraet-zeichen .sym:last-child { width: 5.6cqw; height: 5.6cqw; stroke-width: 1.8; }
 .geraet-schirm img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 .geraet-schirm picture { display: contents; }
 
@@ -649,7 +660,7 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .lb-knopf:hover { background: var(--rand); }
 .lb-buehne { display: flex; justify-content: center; }
 .lb-buehne .geraet-desktop { width: min(100%, calc((100dvh - 210px) * 1.55)); box-shadow: 0 0 0 1px var(--rand-stark); }
-.lb-buehne .geraet-mobil { width: min(100%, calc((100dvh - 230px) * 0.455)); box-shadow: none; }
+.lb-buehne .geraet-mobil { width: min(100%, calc((100dvh - 230px) * 0.43)); box-shadow: none; }
 .lb-unterschrift { text-align: center; color: var(--text-2); min-height: 1.6em; }
 .lb-nav { display: flex; justify-content: center; gap: 12px; }
 .lb-nav[hidden] { display: none; }
@@ -1038,8 +1049,7 @@ html:not(.js) .nur-js { display: none !important; }
 .held-schau { position: relative; margin: 0; container-type: inline-size; }
 .held-schau-buehne { position: relative; padding: 0 8cqw 6cqw 0; }
 .held-schau-buehne .geraet-mobil { position: absolute; z-index: 1; right: 0; bottom: 0; width: 22cqw; margin: 0; padding: 0.66cqw; border-radius: 3.25cqw; }
-.held-schau-buehne .geraet-mobil .geraet-schirm { border-radius: 2.6cqw; }
-.held-schau-buehne .geraet-mobil .geraet-kerbe { top: 1.4cqw; height: 1.45cqw; }
+.held-schau-buehne .geraet-mobil .geraet-glas { border-radius: 2.6cqw; }
 .held-schau figcaption { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; margin-top: 18px; }
 .held-schau figcaption strong { font-family: var(--schrift-gross); font-size: 1.375rem; letter-spacing: -0.025em; line-height: 1.2; margin-top: 4px; }
 .held-schau figcaption > span:not(.status):not(.mehr) { color: var(--text-2); }
