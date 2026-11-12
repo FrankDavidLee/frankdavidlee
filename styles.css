@@ -319,8 +319,12 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 /* Lange Überschrift (eine Zeile über 30 Zeichen, z. B. die deutsche): etwas kleinere Schrift und
    volle Breite, damit sie am Desktop wie die englische in zwei Zeilen steht. */
 .held-satz-lang { max-width: none; font-size: clamp(1.9rem, 0.96rem + 4vw, 4.2rem); }
+.held-satz-laenger { font-size: clamp(1.76rem, 0.89rem + 3.7vw, 3.88rem); } /* eine Zeile über 38 Zeichen */
 /* Jede Satzhälfte beginnt eine eigene Zeile; innerhalb wird ausgeglichen umbrochen. */
 .held-zeile { display: block; text-wrap: balance; }
+/* Verlaufszeile: der Hintergrund trägt die Schrift — etwas Platz nach unten, sonst sind die
+   Unterlängen der letzten Zeile (g, p, y) abgeschnitten. Der Abstand zum Folgenden bleibt gleich. */
+.held-zeile.verlauf { padding-bottom: 0.16em; margin-bottom: -0.16em; }
 .verlauf {
   background: linear-gradient(100deg, var(--verlauf-a) 0%, var(--verlauf-b) 70%);
   -webkit-background-clip: text; background-clip: text; color: transparent;
