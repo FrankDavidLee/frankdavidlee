@@ -316,6 +316,9 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   max-width: 23ch; font-size: clamp(2.375rem, 1.2rem + 5vw, 5.25rem); line-height: 1.02; font-weight: 700; letter-spacing: -0.045em;
   text-wrap: balance; hyphens: manual; -webkit-hyphens: manual; overflow-wrap: normal;
 }
+/* Lange Überschrift (eine Zeile über 30 Zeichen, z. B. die deutsche): etwas kleinere Schrift und
+   volle Breite, damit sie am Desktop wie die englische in zwei Zeilen steht. */
+.held-satz-lang { max-width: none; font-size: clamp(1.9rem, 0.96rem + 4vw, 4.2rem); }
 /* Jede Satzhälfte beginnt eine eigene Zeile; innerhalb wird ausgeglichen umbrochen. */
 .held-zeile { display: block; text-wrap: balance; }
 .verlauf {
