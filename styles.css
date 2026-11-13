@@ -98,6 +98,10 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scroll-padding-top: calc(var(--kopf-h) + 16px); }
+/* Kein Weiterziehen über das Seitenende: auf iOS wanderte die feste untere Leiste dabei mit dem
+   Inhalt nach oben und darunter blieb leere Fläche (Franks Befund 13.11.2026, im Prüfbrowser nicht
+   nachstellbar). */
+html, body { overscroll-behavior-y: none; }
 body {
   margin: 0;
   background: var(--bg);
