@@ -97,6 +97,18 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/heyappa/"/>
   </url>
   <url>
+    <loc>https://frankdavidlee.com/projects/teleprompter/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/teleprompter/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/teleprompter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/teleprompter/"/>
+  </url>
+  <url>
+    <loc>https://frankdavidlee.com/de/projekte/teleprompter/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/teleprompter/"/>
+    <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/teleprompter/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://frankdavidlee.com/projects/teleprompter/"/>
+  </url>
+  <url>
     <loc>https://frankdavidlee.com/projects/capstone-neuefische/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://frankdavidlee.com/projects/capstone-neuefische/"/>
     <xhtml:link rel="alternate" hreflang="de" href="https://frankdavidlee.com/de/projekte/capstone-neuefische/"/>
