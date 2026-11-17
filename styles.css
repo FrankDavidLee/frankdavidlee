@@ -513,7 +513,13 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .karte-bild .geraet-desktop { width: 100%; }
 /* Karte: Telefon nur 46 % breit — Rahmen, Rundung und Glas im selben Verhältnis wie in voller
    Größe (300 px), sonst schneidet die feste Rundung die Uhrzeit der Statusleiste an. */
-.karte-bild { container-type: inline-size; }
+.karte-bild { container-type: inline-size; position: relative; }
+/* Kennzeichen „Neu“ (Feld `neu` am Projekt): sitzt oben links über dem Bild der Karte. */
+.neu-marke {
+  position: absolute; top: 12px; left: 12px; z-index: 2; padding: 3px 11px; border-radius: 999px;
+  background: var(--akzent); color: var(--akzent-auf); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  box-shadow: 0 6px 16px -6px rgba(0, 0, 0, 0.45);
+}
 .karte-bild .geraet-mobil { width: 46cqw; padding: 1.38cqw; border-radius: 6.75cqw; }
 .karte-bild .geraet-mobil .geraet-glas { border-radius: 5.37cqw; }
 .karte-text { display: flex; flex-direction: column; gap: 10px; padding: 20px 22px 24px; flex: 1; }
