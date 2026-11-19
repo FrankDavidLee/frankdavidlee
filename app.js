@@ -302,6 +302,7 @@
     var buehne = dialog.querySelector(".lb-buehne");
     var unterschrift = dialog.querySelector(".lb-unterschrift");
     var position = dialog.querySelector(".lb-position");
+    var vollLink = dialog.querySelector(".lb-voll");
     var aktuell = 0;
     var zuletzt = null;
     var reihenfolge = ausloeser.slice().sort(function (a, b) {
@@ -321,8 +322,13 @@
         s.setAttribute("sizes", "100vw");
       });
       buehne.replaceChildren(kopie);
-      var cap = knopf.parentNode.querySelector("figcaption");
+      var cap = knopf.parentNode.querySelector(".fig-text");
       unterschrift.textContent = cap ? cap.textContent : "";
+      if (vollLink) {
+        var voll = knopf.getAttribute("data-voll");
+        vollLink.hidden = !voll;
+        vollLink.setAttribute("href", voll || "#");
+      }
       position.textContent = dialog
         .getAttribute("data-text-position")
         .replace("{i}", String(aktuell + 1))
