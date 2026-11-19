@@ -328,6 +328,7 @@
         var voll = knopf.getAttribute("data-voll");
         vollLink.hidden = !voll;
         vollLink.setAttribute("href", voll || "#");
+        vollLink.setAttribute("data-vb-alt", knopf.getAttribute("data-voll-alt") || "");
       }
       position.textContent = dialog
         .getAttribute("data-text-position")
@@ -365,7 +366,7 @@
       if (ev.key === "ArrowRight" && reihenfolge.length > 1) { ev.preventDefault(); zeigeBild(aktuell + 1); }
       else if (ev.key === "ArrowLeft" && reihenfolge.length > 1) { ev.preventDefault(); zeigeBild(aktuell - 1); }
       else if (ev.key === "Tab") {
-        var fokusierbar = Array.prototype.filter.call(dialog.querySelectorAll("button"), function (b) {
+        var fokusierbar = Array.prototype.filter.call(dialog.querySelectorAll("button, a[href]"), function (b) {
           return !b.closest("[hidden]");
         });
         if (!fokusierbar.length) return;
@@ -379,6 +380,92 @@
     dialog.addEventListener("close", function () {
       buehne.replaceChildren();
       if (zuletzt) zuletzt.focus();
+    });
+  }
+
+  /* ---------- Vollbildansicht für Zeichnungen ----------
+     Links mit data-vollbild öffnen ihr Bild in einem Fenster über der Seite: Escape oder der Knopf schließen es,
+     Plus und Minus (Knöpfe oder Tasten) ändern die Größe, verschoben wird durch Scrollen oder Wischen.
+     Ohne JavaScript (oder ohne <dialog>) öffnet der Link wie bisher die Bilddatei. */
+  var vb = doc.querySelector("[data-vollbild-dialog]");
+  if (vb && typeof vb.showModal === "function") {
+    var vbBild = vb.querySelector("img");
+    var vbBuehne = vb.querySelector(".vb-buehne");
+    var vbTitel = vb.querySelector(".vb-titel");
+    var vbKleiner = vb.querySelector('[data-vb="kleiner"]');
+    var vbGroesser = vb.querySelector('[data-vb="groesser"]');
+    var vbStufen = [1, 1.5, 2, 3, 4];
+    var vbStufe = 0;
+    var vbZuletzt = null;
+
+    // Stufe 1 = das ganze Bild passt in das Fenster; die übrigen vergrößern von dort aus.
+    var vbPasst = function () {
+      var stil = getComputedStyle(vbBuehne);
+      var bw = vbBuehne.clientWidth - parseFloat(stil.paddingLeft) - parseFloat(stil.paddingRight);
+      var bh = vbBuehne.clientHeight - parseFloat(stil.paddingTop) - parseFloat(stil.paddingBottom);
+      var verh = vbBild.naturalWidth && vbBild.naturalHeight ? vbBild.naturalWidth / vbBild.naturalHeight : 1.6;
+      return Math.max(120, Math.min(bw, bh * verh));
+    };
+    var vbSetze = function (neu) {
+      var fx = vbBuehne.scrollWidth ? (vbBuehne.scrollLeft + vbBuehne.clientWidth / 2) / vbBuehne.scrollWidth : 0.5;
+      var fy = vbBuehne.scrollHeight ? (vbBuehne.scrollTop + vbBuehne.clientHeight / 2) / vbBuehne.scrollHeight : 0.5;
+      vbStufe = Math.max(0, Math.min(vbStufen.length - 1, neu));
+      vbBild.style.width = Math.round(vbPasst() * vbStufen[vbStufe]) + "px";
+      vbBuehne.scrollLeft = fx * vbBuehne.scrollWidth - vbBuehne.clientWidth / 2;
+      vbBuehne.scrollTop = fy * vbBuehne.scrollHeight - vbBuehne.clientHeight / 2;
+      vbKleiner.disabled = vbStufe === 0;
+      vbGroesser.disabled = vbStufe === vbStufen.length - 1;
+      vbBild.classList.toggle("vb-max", vbStufe === vbStufen.length - 1);
+    };
+    // Start: auf schmalen Bildschirmen wäre „alles sichtbar“ unlesbar klein – dann gleich eine lesbare Stufe.
+    var vbStart = function () {
+      var passt = vbPasst();
+      var s = 0;
+      while (s < vbStufen.length - 1 && passt * vbStufen[s] < 900) s++;
+      vbBuehne.scrollLeft = 0;
+      vbBuehne.scrollTop = 0;
+      vbSetze(s);
+      vbBuehne.scrollLeft = 0;
+      vbBuehne.scrollTop = 0;
+    };
+
+    doc.addEventListener("click", function (ev) {
+      var link = ev.target.closest && ev.target.closest("a[data-vollbild]");
+      if (!link || ev.defaultPrevented || ev.button !== 0 || ev.metaKey || ev.ctrlKey || ev.shiftKey || ev.altKey) return;
+      ev.preventDefault();
+      vbZuletzt = link;
+      vbTitel.textContent = link.getAttribute("data-vb-titel") || "";
+      vbBild.alt = link.getAttribute("data-vb-alt") || "";
+      vbBild.style.width = "";
+      vbBild.onload = vbStart;
+      vbBild.src = link.getAttribute("href");
+      vb.showModal();
+      if (vbBild.complete && vbBild.naturalWidth) vbStart();
+      vb.querySelector('[data-vb="schliessen"]').focus();
+    });
+    vb.addEventListener("click", function (ev) {
+      var steuer = ev.target.closest("[data-vb]");
+      if (steuer) {
+        var art = steuer.getAttribute("data-vb");
+        if (art === "schliessen") vb.close();
+        else vbSetze(vbStufe + (art === "groesser" ? 1 : -1));
+      } else if (ev.target === vbBild && ev.pointerType !== "touch") {
+        // Maus: Klick auf das Bild vergrößert, auf der größten Stufe geht es zurück zur Übersicht.
+        vbSetze(vbStufe === vbStufen.length - 1 ? 0 : vbStufe + 1);
+      }
+    });
+    vb.addEventListener("keydown", function (ev) {
+      if (ev.key === "+" || ev.key === "=") { ev.preventDefault(); vbSetze(vbStufe + 1); }
+      else if (ev.key === "-") { ev.preventDefault(); vbSetze(vbStufe - 1); }
+      else if (ev.key === "0") { ev.preventDefault(); vbSetze(0); }
+    });
+    window.addEventListener("resize", function () {
+      if (vb.open) vbSetze(vbStufe);
+    });
+    vb.addEventListener("close", function () {
+      vbBild.removeAttribute("src");
+      vbBild.style.width = "";
+      if (vbZuletzt && doc.contains(vbZuletzt) && !vbZuletzt.hidden) vbZuletzt.focus();
     });
   }
 
