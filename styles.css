@@ -694,6 +694,26 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .lb-voll { align-self: center; margin-top: -8px; }
 .lb-voll[hidden] { display: none; }
 .lb-nav { display: flex; justify-content: center; gap: 12px; }
+/* Vollbildansicht für Zeichnungen: füllt das Fenster; das Bild lässt sich vergrößern und durch Scrollen verschieben. */
+.vollbild {
+  width: 100vw; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; border: 0;
+  background: var(--flaeche); color: var(--text); overflow: hidden;
+}
+.vollbild::backdrop { background: var(--flaeche); }
+.vollbild[open] { display: flex; flex-direction: column; }
+.vb-kopf {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; flex: none;
+  padding: max(8px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) 8px max(16px, env(safe-area-inset-left));
+  border-bottom: 1px solid var(--rand);
+}
+.vb-titel { min-width: 0; margin: 0; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vb-knoepfe { display: flex; gap: 8px; flex: none; }
+.vb-knoepfe .lb-knopf:disabled { opacity: 0.4; cursor: default; }
+.vb-knoepfe .lb-knopf:disabled:hover { background: var(--flaeche-2); }
+.vb-buehne { flex: 1; min-height: 0; display: flex; overflow: auto; padding: 12px; background: var(--flaeche-2); overscroll-behavior: contain; }
+.vb-buehne:focus-visible { outline: 3px solid var(--akzent); outline-offset: -3px; }
+.vb-buehne img { flex: none; margin: auto; max-width: none; height: auto; border-radius: 8px; box-shadow: 0 0 0 1px var(--rand-stark); cursor: zoom-in; }
+.vb-buehne img.vb-max { cursor: zoom-out; }
 .lb-nav[hidden] { display: none; }
 @media (prefers-reduced-motion: no-preference) {
   .lightbox[open] { animation: lb-auf 0.28s var(--kurve); }
@@ -801,7 +821,7 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   :root { --bg: #fff; --flaeche: #fff; --flaeche-2: #f3f3f3; --getoent: #fff; --text: #000; --text-2: #222; --text-3: #444; --rand: #ccc; --rand-stark: #999; --akzent: #000; --schatten: none; --schatten-gross: none; color-scheme: light; }
   body { padding: 0 !important; font-size: 11pt; background: #fff; }
   .kopf { position: static; backdrop-filter: none; background: #fff; }
-  .nav-oben, .nav-unten, .sprachwahl, .themawahl, .sprunglink, .aurora, .knoepfe, .filter, .lightbox, .galerie-lupe, .fs-weiter, .video-flaeche, .fs-video { display: none !important; }
+  .nav-oben, .nav-unten, .sprachwahl, .themawahl, .sprunglink, .aurora, .knoepfe, .filter, .lightbox, .vollbild, .galerie-lupe, .fs-weiter, .video-flaeche, .fs-video { display: none !important; }
   .abschnitt, .held, .seitenkopf { padding-block: 16pt; }
   .feature, .karte, .bento li, .kontakt-karte, .kontakt-band { box-shadow: none; break-inside: avoid; }
   .kontakt-band { background: #fff; color: #000; border: 1px solid #999; }
