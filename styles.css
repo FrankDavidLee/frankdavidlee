@@ -647,6 +647,8 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .galerie { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); align-items: start; }
 .galerie-figur { margin: 0; }
 .galerie-figur figcaption { margin-top: 14px; font-size: 0.9375rem; color: var(--text-3); text-align: center; }
+.galerie-figur figcaption .fig-text { display: block; }
+.galerie-figur figcaption .fig-voll { margin-top: 2px; }
 .galerie-knopf { position: relative; display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; border-radius: 16px; text-align: inherit; }
 .galerie-knopf .geraet-mobil { width: min(100%, 280px); }
 .galerie-lupe {
@@ -689,6 +691,8 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
 .lb-buehne .geraet-desktop { width: min(100%, calc((100dvh - 210px) * 1.55)); box-shadow: 0 0 0 1px var(--rand-stark); }
 .lb-buehne .geraet-mobil { width: min(100%, calc((100dvh - 230px) * 0.43)); box-shadow: none; }
 .lb-unterschrift { text-align: center; color: var(--text-2); min-height: 1.6em; }
+.lb-voll { align-self: center; margin-top: -8px; }
+.lb-voll[hidden] { display: none; }
 .lb-nav { display: flex; justify-content: center; gap: 12px; }
 .lb-nav[hidden] { display: none; }
 @media (prefers-reduced-motion: no-preference) {
