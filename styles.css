@@ -517,6 +517,7 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   border-bottom: 1px solid var(--rand);
 }
 .karte-bild .geraet-desktop { width: 100%; }
+.karte-bild .schau { width: 100%; }
 /* Karte: Telefon nur 46 % breit — Rahmen, Rundung und Glas im selben Verhältnis wie in voller
    Größe (300 px), sonst schneidet die feste Rundung die Uhrzeit der Statusleiste an. */
 .karte-bild { container-type: inline-size; position: relative; }
@@ -1104,6 +1105,7 @@ html:not(.js) .nur-js { display: none !important; }
 
 /* ---------- Startseite: Produkt im Kopf, solange kein Video hinterlegt ist ---------- */
 .held-schau { position: relative; margin: 0; container-type: inline-size; }
+.schau { position: relative; container-type: inline-size; }
 .held-schau-buehne { position: relative; padding: 0 8cqw 6cqw 0; }
 .held-schau-buehne .geraet-mobil { position: absolute; z-index: 1; right: 0; bottom: 0; width: 22cqw; margin: 0; padding: 0.66cqw; border-radius: 3.25cqw; }
 .held-schau-buehne .geraet-mobil .geraet-glas { border-radius: 2.6cqw; }
