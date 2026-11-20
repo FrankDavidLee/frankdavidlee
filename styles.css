@@ -377,6 +377,12 @@ body { padding-bottom: calc(var(--unten-h) + 1px + env(safe-area-inset-bottom));
   -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
 }
 .video-play .sym { width: 28px; height: 28px; margin-left: 4px; fill: currentColor; }
+.video-paar { display: grid; gap: 40px 32px; align-items: start; }
+@media (min-width: 900px) { .video-paar:not(.video-paar-gestapelt):not(.video-paar-einzeln) { grid-template-columns: 1fr 1fr; } }
+.video-paar-einzeln { max-width: 832px; }
+.video-paar-gestapelt { gap: 56px; }
+.video-mehr { margin-top: 28px; }
+.video-knoepfe { margin-top: 48px; }
 .video figcaption { display: flex; flex-direction: column; gap: 4px; margin-top: 12px; }
 .video figcaption strong { font-family: var(--schrift-gross); font-size: 1.25rem; letter-spacing: -0.02em; }
 .video figcaption span { color: var(--text-2); }
